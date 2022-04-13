@@ -33,14 +33,20 @@ when I changed the code of getFibTerm to only return 1 if n < 2 rather than n <=
 1. What are the values of "x", "y", and "sum" printed by your statement? Why was x not equal 
 to the first integer entered here, and how could we fix this?
 
-
+My statement printed x as being 4, y as being 4, and the sum as being 0. In this case, x was not
+equal to the integer (5) I entered because in the main method, when x is assigned a value, the
+entry to the console will be divided by 2 before being multiplied by 2. Since Scanner console detects
+an int, integer division will be used, which results in trailing decimals being cut off. This problem
+could be fixed if console.nextInt was not divided by 2 then multiplied by 2, and is instead just
+assigned to x.
 
 2. What are all the names and values listed in the “Variables” panel? What does the “frames” 
 tab list as the current method and line number? (Write down the text that was highlighted when 
 the Debug perspective first opened.)
 
-
+The "Variables" panel contains the variable x with a value of 3 and the variable y with a value of 4.
+The "Frames" tab lists the current method as computeSum, and the line number listed is 43.
 
 3. What are all the names and values listed in the “Variables” panel after each of the two step overs?
 
-
+The variables are: x with a value of 3, y with a value of 4, and sum with a value of -1.
