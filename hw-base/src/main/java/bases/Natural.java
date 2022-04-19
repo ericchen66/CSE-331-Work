@@ -69,10 +69,15 @@ public class Natural {
     //       Include an explanation of why postcondition holds at each return statement.
     //       You can use the template given right before the postcondition in this method.
 
-    int i = 0;  // TODO: feel free to change 0 to something else
+    int i = digits.length;  // TODO: feel free to change 0 to something else
 
     // TODO: write your loop here
-
+    while(i > 0){
+      i--;
+      if(digits[i] != 0){
+        return i;
+      }
+    }
     // At this point in the code, we know that _________.
     // This implies the postcondition below, since __________.
 
@@ -226,6 +231,12 @@ public class Natural {
 
 
     StringBuilder buf = new StringBuilder();
+    int i = digits.length;
+
+    while(i > 0){
+      i--;
+      buf.append(BaseDigits.digitToChar(digits[i], base));
+    }
 
     // TODO: write your loop here
 
