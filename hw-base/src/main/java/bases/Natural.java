@@ -72,7 +72,7 @@ public class Natural {
     int i = digits.length - 1;  // TODO: feel free to change 0 to something else
 
     // TODO: write your loop here
-    //Inv: D[i + 1]...D[n - 1] = 0
+    // Inv: D[i + 1]...D[n - 1] = 0
     while(i > 0){
       if(digits[i] != 0){
         // At this point in the code, we know that D[i] != 0 and D[i + 1]...D[n - 1] = 0
@@ -240,17 +240,19 @@ public class Natural {
 
 
     StringBuilder buf = new StringBuilder();
-    int i = digits.length;
+    int i = this.digits.length;
 
+    // Inv: buf = ch(D[n - 1]), ch(D[n - 2])...ch(D[i])
     while(i > 0){
       i--;
-      buf.append(BaseDigits.digitToChar(digits[i], base));
+      buf.append(BaseDigits.digitToChar(this.digits[i], this.base));
     }
 
     // TODO: write your loop here
 
-    // At this point in the code, we know that _________.
-    // This implies the postcondition below, since __________.
+    // At this point in the code, we know that i = 0 and buf = ch(D[n - 1]), ch(D[n - 2])...ch(D[i]).
+    // This implies the postcondition below, since the two represent the same idea, as i = 0, so the last
+    // element of buf is ch(D[0]).
 
     // Post: buf = ch(D[n-1]), ch(D[n-2]), ..., ch(D[0])
     return buf.toString();
