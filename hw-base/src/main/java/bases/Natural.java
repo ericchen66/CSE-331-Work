@@ -324,32 +324,29 @@ public class Natural {
     //       where n = this.digits.length and B is as defined above
     checkZipSum(other.digits, this.digits, newDigits);
 
-
-    // TODO: Remove the next two lines before starting work on the loop below!
-    // They cause the code to always return null, which we only want to do
-    // while you are working on the two loops above. Once those work, remove
-    // these lines and start on the third and final loop below.
-    if (this.digits.length < newDigits.length)
-      return null;
-
-
-    // TODO: Explain why we have
-    //         this.value + other.value = D[0] + D[1] b + ... + D[n-1] b^{n-1}
+    // this.getValue() + other.getValue() = D[0] + D[1]b... + D[n-1]b^(n-1)
+    // because the getValue method returns digits[0] + digits[1]b... + digits[n-1]b^(n-1)
+    // for both this.digits and other.digits. Adding them up, we have
+    // (this.digits[0] + other.digits[0]) + (this.digits[1] + other.digits[1])b...
+    // + (this.digits[n-1] + other.digits[n-1])b^(n-1)), where n is the length of this.digits.
+    // The elements inside parentheses are exactly what newDigits contains after executing the previous two loops.
+    // So, multiplying each element i of newDigits by b^i will result in this.getValue() + other.getValue().
 
     // The next loop changes the values in newDigits so that it satisfies the
     // part of the RI that says each digit is between 0 and b-1. It does this
     // *without* changing the value that the digits represent, so they will
     // still represent the value this.value + other.value.
 
-    i = -1;  // TODO: Change this so that the invariant holds initially.
+    i = 0;
 
     // Inv: this.value + other.value = D[0] + D[1] b + ... + D[n-1] b^{n-1} and
     //      D[0] < b, D[1] < b, ..., D[i-1] < b and
     //      D[i] < 2b, D[i+1] < 2b, ..., D[n-1] < 2b
-    while (i != -1) {  // TODO: Replace the condition here with a suitable one.
-
-      // TODO: Implement the body of this loop. The reader must to be able to
-      //       reason through why your code is correct, so keep it simple!
+    while (i != newDigits.length - 1) {
+      if(newDigits[i] >= this.base) {
+        newDigits[i] -= base;
+        newDigits[i + 1]++;
+      }
       // NOTE: Do not use div or mod. Simple arithmetic should be enough.
 
       // Hint: Subtracting b from D[i] while adding 1 to D[i+1] does not change
@@ -362,8 +359,14 @@ public class Natural {
       i = i + 1;  // NOTE: do not change this line
     }
 
-    // TODO: Explain why (1) the postcondition holds and
-    //                   (2) the preconditions of this constructor hold.
+
+    // The postcondition must hold because the invariant of the previous loop guarantees that newDigits
+    // must have an integer value equal to this.getValue + other.getValue.
+    // The precondition of the Natural constructor holds because the invariant of the previous loop
+    // states that each element of newDigits must have a value less than this.base, so each element is
+    // a valid value in the base (between 0 and base - 1). newDigits must also have length greater than or equal
+    // to 1, since it was initialized with length this.digits.length + 1.
+
     return new Natural(this.base, newDigits);
   }
 
