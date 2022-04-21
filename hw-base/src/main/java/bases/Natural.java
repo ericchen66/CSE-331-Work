@@ -64,14 +64,9 @@ public class Natural {
    *     0 if none are non-zero
    */
   public static int leadingDigit(int[] digits) {
-    // TODO: Implement this method with a loop, and include a loop invariant.
-    //       Your code must be correct with the invariant you write (tests don't check this!).
-    //       Include an explanation of why postcondition holds at each return statement.
-    //       You can use the template given right before the postcondition in this method.
 
-    int i = digits.length - 1;  // TODO: feel free to change 0 to something else
+    int i = digits.length - 1;
 
-    // TODO: write your loop here
     // Inv: D[i + 1]...D[n - 1] = 0
     while(i > 0){
       if(digits[i] != 0){
@@ -233,10 +228,6 @@ public class Natural {
    * @return The string of digits corresponding to this value in this base.
    */
   public String toString() {
-    // TODO: Implement this method with a loop, and include a loop invariant.
-    //       Your code must be correct with the invariant you write (tests don't check this!).
-    //       Include an explanation of why postcondition holds at each return statement.
-    //       You can use the template given right before the postcondition in this method.
 
 
     StringBuilder buf = new StringBuilder();
@@ -247,8 +238,6 @@ public class Natural {
       i--;
       buf.append(BaseDigits.digitToChar(this.digits[i], this.base));
     }
-
-    // TODO: write your loop here
 
     // At this point in the code, we know that i = 0 and buf = ch(D[n - 1]), ch(D[n - 2])...ch(D[i]).
     // This implies the postcondition below, since the two represent the same idea, as i = 0, so the last
@@ -288,32 +277,45 @@ public class Natural {
     // only in this (i.e., when other is shorter). After the loops, newDigits
     // will represent the correct value, but it will not yet satisfy the RI.
 
-    // TODO: Before implementing them, write a summary comment above each of
-    //       the next two loops, explaining in English what it does.
 
 
-    int i = this.digits.length;  // TODO: Fill in the initialization code such that the invariant holds initially.
+    int i = 0;
 
-    // TODO: Summary comment here
+    // This loop will fill in the elements of the array newDigits using a running sum
+    // of the elements of this.digits and other.digits at every given index for the
+    // digit arrays, going from index 0 to index i - 1 after each iteration. Based on a
+    // previous conditional, we know that other.digits is smaller than or the same size as
+    // this.digits.
     // Inv: D[0] = A[0]+B[0], D[1] = A[1]+B[1], ..., D[i-1] = A[i-1]+B[i-1],
     //      where D = new_digits, A = this.digits, and B = other.digits
     while (i != other.digits.length) {
-
-      // TODO: Implement the body of this loop, such that it's correct with the given invariant.
+      newDigits[i] = this.digits[i] + other.digits[i];
+      i++;
 
     }
+    // After this loop, every element of D must contain an integer less than 2b because
+    // the RI of the Natural class states that the private field digits must have value
+    // 0 <= D[i] < b for i = 0...n - 1 since we are adding two numbers with the same base.
 
-    // TODO: Explain why we have D[0] < 2b, D[1] < 2b, ..., D[n-1] < 2b
+    // The invariant of the following loop holds initially because all elements of newDigits
+    // from index 0 to i - 1 contains the value of this.digits at the index plus other.digits
+    // at the index.
 
-    // TODO: Explain why the invariant of the loop below holds initially (no code needed).
-
-    // TODO: Summary comment here
+    // This loop will fill in the elements of the array newDigits using a running sum
+    // of the elements of this.digits and other.digits at every given index for the
+    // digit arrays, going from index 0 to index i - 1 after each iteration. For any given
+    // index k, if k is less than other.digits.length, other.digits[k] will be added to
+    // this.digits[k], else 0 will be added to this.digits[k].
     // Inv: D[0] = A[0]+B[0], D[1] = A[1]+B[1], ..., D[i-1] = A[i-1]+B[i-1],
     //      where B[k] = other.digits[k] if k < other.digits.length and
-    //            B[k] = 0               otherwise
+    //            B[k] = 0 otherwise
     while (i != this.digits.length) {
-
-      // TODO: Implement the body of this loop, such that it's correct with the given invariant.
+      if(i < other.digits.length){
+        newDigits[i] = this.digits[i] + other.digits[i];
+      }else{
+        newDigits[i] = this.digits[i] + 0;
+      }
+      i++;
 
 
     }
