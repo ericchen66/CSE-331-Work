@@ -69,17 +69,26 @@ public class Natural {
     //       Include an explanation of why postcondition holds at each return statement.
     //       You can use the template given right before the postcondition in this method.
 
-    int i = digits.length;  // TODO: feel free to change 0 to something else
+    int i = digits.length - 1;  // TODO: feel free to change 0 to something else
 
     // TODO: write your loop here
+    //Inv: D[i + 1]...D[n - 1] = 0
     while(i > 0){
-      i--;
       if(digits[i] != 0){
+        // At this point in the code, we know that D[i] != 0 and D[i + 1]...D[n - 1] = 0
+        // This implies the postcondition, since the above is identical to the postcondition, but the
+        // postcondition adds an additional possibility of i being 0, which occurs after we exit the loop,
+        // thus making the postcondition a weakening.
+
+        // Post: D[i+1], ..., D[n-1] are all zero and (D[i] != 0 or i = 0)
         return i;
       }
+      i--;
     }
-    // At this point in the code, we know that _________.
-    // This implies the postcondition below, since __________.
+    // At this point in the code, we know that i = 0 and D[i + 1]...D[n - 1] = 0.
+    // This implies the postcondition below, since digits[i + 1]...digits[n - 1] = 0 means the entire
+    // array minus the first element all contain 0. The postcondition is weakening of this since
+    // it also includes the case where i is not 0 but D[i] is 0, which is handled in the loop.
 
     // Post: D[i+1], ..., D[n-1] are all zero and (D[i] != 0 or i = 0)
     return i;
@@ -275,7 +284,7 @@ public class Natural {
     // the array newDigits. The first loop handles the digits that exist in
     // both this and other, and the second loop handles the digits that exist
     // only in this (i.e., when other is shorter). After the loops, newDigits
-    // will represent the correct value, but it it will not yet satisfy the RI.
+    // will represent the correct value, but it will not yet satisfy the RI.
 
     // TODO: Before implementing them, write a summary comment above each of
     //       the next two loops, explaining in English what it does.
