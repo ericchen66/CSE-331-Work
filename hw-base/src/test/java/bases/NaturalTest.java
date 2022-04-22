@@ -245,7 +245,11 @@ public class NaturalTest {
       }
     }
   }
-
+  @Test
+  public void testTwoBase(){
+    Natural n = new Natural(2, 135);
+    System.out.println(n.toBase(10).toString());
+  }
   /** Tests converting numbers between bases. */
   @Test
   public void testToBase() {

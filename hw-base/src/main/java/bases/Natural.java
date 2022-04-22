@@ -205,19 +205,19 @@ public class Natural {
     Natural r = new Natural(base);
     Natural b = new Natural(base, this.base);
 
-    // TODO: Initialize i,j such that the invariant below holds initially.
-    int i = -1;
+    int i = this.digits.length;
     int j = -1;
 
     // Inv: r = (base, D[i] b^0 + D[i+1] b^1 + ... + D[n-1] b^j) and i+j = n-1,
     //      where D = this.digits, n = this.digits.length, and b = this.base
-    while (i != -1) {  // TODO: Replace the condition here with a suitable one.
-
-      // TODO: Implement the body of this loop, so that it's correct with the given invariant.
-
+    while (j != this.digits.length - 1) {
+      i--;
+      j++;
+      r = r.times(b).plus(new Natural(base, this.digits[i]));
     }
 
-    // TODO: Explain why the postcondition holds at the end of this code.
+    // The postcondition holds because at the end of the loop, D[i]b^0 + D[i+1]b^1... + D[n-1]b^j will become
+    // this.getValue() since j will equal this.digits.length-1 after the loop.
     // Post: r = (base, this.value())
     return r;
   }
