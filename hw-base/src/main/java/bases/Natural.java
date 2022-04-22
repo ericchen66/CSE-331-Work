@@ -197,10 +197,6 @@ public class Natural {
     // Hints: 1. Compare this invariant to the one from getValue above
     //        2. Take advantage of the existing methods, plus and times.
     //
-    // TODO: Implement the method below, whose invariant is provided.
-    //       Your code must be correct with the invariant written.
-    //       Include a comment explaining why the postcondition follows from
-    //           the facts we know from above it.
 
     Natural r = new Natural(base);
     Natural b = new Natural(base, this.base);
@@ -211,8 +207,8 @@ public class Natural {
     // Inv: r = (base, D[i] b^0 + D[i+1] b^1 + ... + D[n-1] b^j) and i+j = n-1,
     //      where D = this.digits, n = this.digits.length, and b = this.base
     while (j != this.digits.length - 1) {
-      i--;
-      j++;
+      i = i - 1;
+      j = j + 1;
       r = r.times(b).plus(new Natural(base, this.digits[i]));
     }
 
