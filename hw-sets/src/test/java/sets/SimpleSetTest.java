@@ -12,7 +12,6 @@ public class SimpleSetTest {
   /** Tests calculating the size of a set. */
   @Test
   public void testSize() {
-    // TODO: implement this
     assertEquals(0, S.size(), 0);
     assertEquals(1, S1.size(), 0);
     assertEquals(3, S123.size(), 0);
@@ -36,8 +35,6 @@ public class SimpleSetTest {
     assertTrue(R2.toString().equals("R \\ {2.0}"));
     assertTrue(R123.toString().equals("R \\ {1.0, 2.0, 3.0}"));
     assertFalse(R12.toString().equals("{1.0, 2.0}"));
-    // TODO: implement this
-    
   }
 
   private static SimpleSet S = new SimpleSet(new float[0]);

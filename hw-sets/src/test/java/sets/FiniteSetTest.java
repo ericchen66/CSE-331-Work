@@ -60,8 +60,6 @@ public class FiniteSetTest {
   private static FiniteSet T5 = FiniteSet.of(new float[] {5, 6});
   private static FiniteSet T6 = FiniteSet.of(new float[] {3, 4, 5, 6});
   private static FiniteSet T7 = FiniteSet.of(new float[] {2});
-  // TODO: Feel free to initialize (private static) FiniteSet objects here
-  //       if you plan to use them for the tests below.
 
   /** Tests forming the union of two finite sets. */
   @Test
@@ -74,6 +72,7 @@ public class FiniteSetTest {
     assertFalse(S0.union(S1).equals(S12));
 
     assertTrue(T1.union(T2).equals(T3));
+    assertTrue(T7.union(S1).equals(S12));
     assertTrue(T4.union(T5).equals(T6));
     assertFalse(T1.union(T2).equals(T4));
   }

@@ -14,9 +14,7 @@ public class SimpleSet {
   //Points are to be stored in a FiniteSet object that could represent
   //the set, or be used to easily find the complement of the set. A boolean
   //represents whether or not the set is a complement of a finite set.
-  // TODO: fill in and document the representation
-  //       Make sure to include the representation invariant (RI)
-  //       and the abstraction function (AF).
+  //
   //RI: points != null && points.getPoints(0)...points.getPoints(n - 1) != (-infty, +infty, or NaN)
   //n = points.size()
   //AF(this):
@@ -32,7 +30,6 @@ public class SimpleSet {
    * @spec.effects this = {vals[0], vals[1], ..., vals[vals.length-1]}
    */
   public SimpleSet(float[] vals) {
-    // TODO: implement this
     this.points = FiniteSet.of(vals);
     this.complement = false;
   }
@@ -45,7 +42,6 @@ public class SimpleSet {
    * @spec.effects this = R \ points if complement else points
    */
   private SimpleSet(boolean complement, FiniteSet points) {
-    // TODO: implement this
     if(complement){
       this.complement = true;
     }else{
@@ -82,7 +78,6 @@ public class SimpleSet {
    *         infty  if this = R \ {p1, p2, ..., pN}
    */
   public float size() {
-    // TODO: implement this
     if(complement){
       return Float.POSITIVE_INFINITY;
     }else{
@@ -100,8 +95,6 @@ public class SimpleSet {
    *     where p1, p2, ... pN are replaced by the individual numbers.
    */
   public String toString() {
-    // TODO: implement this with a loop. document its invariant
-    //       a StringBuilder may be useful for creating the string
     //Case for empty set or complement of empty set
     if(this.points.size() == 0){
       if(this.complement){
@@ -141,8 +134,6 @@ public class SimpleSet {
    * @return R \ this
    */
   public SimpleSet complement() {
-    // TODO: implement this method
-    //       include sufficient comments to see why it is correct (hint: cases)
     //Creates SimpleSet object with the same set of points, but reverses
     //complement. This will affect how other methods handle the new SimpleSet.
     if(this.complement){
@@ -159,8 +150,6 @@ public class SimpleSet {
    * @return this union other
    */
   public SimpleSet union(SimpleSet other) {
-    // TODO: implement this method
-    //       include sufficient comments to see why it is correct (hint: cases)
     if(!this.complement && !other.complement) {
       //When both sets are not complements, return a non-complement set
       //containing the union of points from both sets.
@@ -187,8 +176,6 @@ public class SimpleSet {
    * @return this intersect other
    */
   public SimpleSet intersection(SimpleSet other) {
-    // TODO: implement this method
-    //       include sufficient comments to see why it is correct
     // NOTE: There is more than one correct way to implement this.
     if(!this.complement && !other.complement) {
       //When both sets are not complements, return a non-complement set
@@ -216,8 +203,6 @@ public class SimpleSet {
    * @return this minus other
    */
   public SimpleSet difference(SimpleSet other) {
-    // TODO: implement this method
-    //       include sufficient comments to see why it is correct
     // NOTE: There is more than one correct way to implement this.
     if(!this.complement && !other.complement) {
       //When both sets are not complements, return a non-complement set
