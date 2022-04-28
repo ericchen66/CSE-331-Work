@@ -21,7 +21,7 @@ public class SimpleSet {
   //n = points.size()
   //AF(this):
   //if(complement), then set is R \ {points.getPoints}
-  //if(!complement), then set is R {points.getPoints}
+  //if(!complement), then set is {points.getPoints}
   private FiniteSet points;
   private boolean complement;
   /**
@@ -97,6 +97,7 @@ public class SimpleSet {
   public String toString() {
     // TODO: implement this with a loop. document its invariant
     //       a StringBuilder may be useful for creating the string
+    //Case for empty set or complement of empty set
     if(this.points.size() == 0){
       if(this.complement){
         return "R";
@@ -126,7 +127,8 @@ public class SimpleSet {
   public SimpleSet complement() {
     // TODO: implement this method
     //       include sufficient comments to see why it is correct (hint: cases)
-
+    //Creates SimpleSet object with the same set of points, but reverses
+    //complement. This will affect how other methods handle the new SimpleSet.
     if(this.complement){
       return new SimpleSet(false, this.points);
     }else{
