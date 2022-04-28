@@ -1,5 +1,6 @@
 package sets;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -10,11 +11,19 @@ import java.util.List;
  * non-NaN value.
  */
 public class SimpleSet {
-
+  //Points are to be stored in a FiniteSet object that could represent
+  //the set, or be used to easily find the complement of the set. A boolean
+  //represents whether or not the set is a complement of a finite set.
   // TODO: fill in and document the representation
   //       Make sure to include the representation invariant (RI)
   //       and the abstraction function (AF).
-
+  //RI: points != null && points.getPoints(0)...points.getPoints(n - 1) != (-infty, +infty, or NaN)
+  //n = points.size()
+  //AF(this):
+  //if(complement), then set is R \ {points.getPoints}
+  //if(!complement), then set is R {points.getPoints}
+  private FiniteSet points;
+  private boolean complement;
   /**
    * Creates a simple set containing only the given points.
    * @param vals Array containing the points to make into a SimpleSet
@@ -23,7 +32,8 @@ public class SimpleSet {
    */
   public SimpleSet(float[] vals) {
     // TODO: implement this
-
+    this.points = FiniteSet.of(vals);
+    this.complement = false;
   }
 
   /**
@@ -35,7 +45,12 @@ public class SimpleSet {
    */
   private SimpleSet(boolean complement, FiniteSet points) {
     // TODO: implement this
-
+    if(complement){
+      this.complement = true;
+    }else{
+      this.complement = false;
+    }
+    this.points = points;
   }
 
   @Override
@@ -44,7 +59,11 @@ public class SimpleSet {
       return false;
 
     SimpleSet other = (SimpleSet) o;
-    return this == other;  // TODO: replace this with a correct check
+    if(this.complement == other.complement) {
+      return this.points.equals(other.points);
+    }else{
+      return false;
+    }
   }
 
   @Override
@@ -59,8 +78,11 @@ public class SimpleSet {
    */
   public float size() {
     // TODO: implement this
-
-    return 0;
+    if(complement){
+      return Float.POSITIVE_INFINITY;
+    }else{
+      return this.points.size();
+    }
   }
 
   /**
@@ -75,8 +97,26 @@ public class SimpleSet {
   public String toString() {
     // TODO: implement this with a loop. document its invariant
     //       a StringBuilder may be useful for creating the string
-
-    return "";
+    if(this.points.size() == 0){
+      if(this.complement){
+        return "R";
+      }else{
+        return "{}";
+      }
+    }
+    StringBuilder b = new StringBuilder();
+    int i = 0;
+    while(i < this.points.size() - 1){
+      b.append(this.points.getPoints().get(i));
+      b.append(", ");
+      i++;
+    }
+    b.append(this.points.getPoints().get(this.points.size() - 1));
+    if(this.complement) {
+      return "R \\ {" + b.toString() + "}";
+    }else{
+      return "{" + b.toString() + "}";
+    }
   }
 
   /**
@@ -87,7 +127,11 @@ public class SimpleSet {
     // TODO: implement this method
     //       include sufficient comments to see why it is correct (hint: cases)
 
-    return new SimpleSet(new float[] {});
+    if(this.complement){
+      return new SimpleSet(false, this.points);
+    }else{
+      return new SimpleSet(true, this.points);
+    }
   }
 
   /**
@@ -99,8 +143,15 @@ public class SimpleSet {
   public SimpleSet union(SimpleSet other) {
     // TODO: implement this method
     //       include sufficient comments to see why it is correct (hint: cases)
-
-    return new SimpleSet(new float[] {});
+    if(!this.complement && !other.complement) {
+      return new SimpleSet(false, this.points.union(other.points));
+    }else if(this.complement && other.complement){
+      return new SimpleSet(true, this.points.intersection(other.points));
+    }else if(!this.complement && other.complement){
+      return new SimpleSet(true, other.points.difference(this.points));
+    }else {
+      return new SimpleSet(true, this.points.difference(other.points));
+    }
   }
 
   /**
@@ -113,8 +164,15 @@ public class SimpleSet {
     // TODO: implement this method
     //       include sufficient comments to see why it is correct
     // NOTE: There is more than one correct way to implement this.
-
-    return new SimpleSet(new float[] {});
+    if(!this.complement && !other.complement) {
+      return new SimpleSet(false, this.points.intersection(other.points));
+    }else if(this.complement && other.complement){
+      return new SimpleSet(true, this.points.union(other.points));
+    }else if(!this.complement && other.complement){
+      return new SimpleSet(false, this.points.difference(other.points));
+    }else {
+      return new SimpleSet(false, other.points.difference(this.points));
+    }
   }
 
   /**
@@ -127,8 +185,15 @@ public class SimpleSet {
     // TODO: implement this method
     //       include sufficient comments to see why it is correct
     // NOTE: There is more than one correct way to implement this.
-
-    return new SimpleSet(new float[] {});
+    if(!this.complement && !other.complement) {
+      return new SimpleSet(false, this.points.difference(other.points));
+    }else if(this.complement && other.complement){
+      return new SimpleSet(false, other.points.difference(this.points));
+    }else if(!this.complement && other.complement){
+      return new SimpleSet(false, this.points.intersection(other.points));
+    }else {
+      return new SimpleSet(true, this.points.union(other.points));
+    }
   }
 
 }

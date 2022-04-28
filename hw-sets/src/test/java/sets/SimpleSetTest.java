@@ -19,6 +19,7 @@ public class SimpleSetTest {
   /** Tests converting a set to a string. */
   @Test
   public void testToString() {
+
     // TODO: implement this
     
   }
@@ -31,6 +32,7 @@ public class SimpleSetTest {
   private static SimpleSet S13 = new SimpleSet(new float[] {1, 3});
   private static SimpleSet S23 = new SimpleSet(new float[] {2, 3});
   private static SimpleSet S123 = new SimpleSet(new float[] {1, 2, 3});
+  private static SimpleSet S223 = new SimpleSet(new float[] {-4, -5, 3, 0, 8});
 
   private static SimpleSet R = S.complement();
   private static SimpleSet R1 = S1.complement();
@@ -40,6 +42,7 @@ public class SimpleSetTest {
   private static SimpleSet R13 = S13.complement();
   private static SimpleSet R23 = S23.complement();
   private static SimpleSet R123 = S123.complement();
+  private static SimpleSet R223 = S223.complement();
 
   /** Tests equality of sets. */
   @Test
