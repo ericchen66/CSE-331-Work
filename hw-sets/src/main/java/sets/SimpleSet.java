@@ -60,8 +60,12 @@ public class SimpleSet {
 
     SimpleSet other = (SimpleSet) o;
     if(this.complement == other.complement) {
+      //If two sets contain the same complement value,
+      //the points stored in them could determine their equality
       return this.points.equals(other.points);
     }else{
+      //A complement set can never be equal with
+      //a non-complement set
       return false;
     }
   }
@@ -146,12 +150,20 @@ public class SimpleSet {
     // TODO: implement this method
     //       include sufficient comments to see why it is correct (hint: cases)
     if(!this.complement && !other.complement) {
+      //When both sets are not complements, return a non-complement set
+      //containing the union of points from both sets.
       return new SimpleSet(false, this.points.union(other.points));
     }else if(this.complement && other.complement){
+      //When both sets are complements, return a complement set
+      //EXCLUDING the intersection of points EXCLUDED from both sets.
       return new SimpleSet(true, this.points.intersection(other.points));
     }else if(!this.complement && other.complement){
+      //When this is not a complement set but other is, return a complement set
+      //EXCLUDING the points EXCLUDED from other and also NOT in this.
       return new SimpleSet(true, other.points.difference(this.points));
     }else {
+      //When other is not a complement set but this is, return a complement set
+      //EXCLUDING the points EXCLUDED from this and also NOT in other.
       return new SimpleSet(true, this.points.difference(other.points));
     }
   }
@@ -167,12 +179,20 @@ public class SimpleSet {
     //       include sufficient comments to see why it is correct
     // NOTE: There is more than one correct way to implement this.
     if(!this.complement && !other.complement) {
+      //When both sets are not complements, return a non-complement set
+      //containing the intersection of points from both sets.
       return new SimpleSet(false, this.points.intersection(other.points));
     }else if(this.complement && other.complement){
+      //When both sets are complements, return a complement set
+      //EXCLUDING the union of points EXCLUDED from both sets.
       return new SimpleSet(true, this.points.union(other.points));
     }else if(!this.complement && other.complement){
+      //When this is not a complement set but other is, return a non-complement set
+      //containing only the points in this that are also NOT EXCLUDED from other.
       return new SimpleSet(false, this.points.difference(other.points));
     }else {
+      //When other is not a complement set but this is, return a non-complement set
+      //containing only the points in other that are also NOT EXCLUDED from this.
       return new SimpleSet(false, other.points.difference(this.points));
     }
   }
@@ -188,12 +208,20 @@ public class SimpleSet {
     //       include sufficient comments to see why it is correct
     // NOTE: There is more than one correct way to implement this.
     if(!this.complement && !other.complement) {
+      //When both sets are not complements, return a non-complement set
+      //containing the set of points in this but not other.
       return new SimpleSet(false, this.points.difference(other.points));
     }else if(this.complement && other.complement){
+      //When both sets are complements, return a non-complement set
+      //containing the set of points EXCLUDED from other but not from this.
       return new SimpleSet(false, other.points.difference(this.points));
     }else if(!this.complement && other.complement){
+      //When this is not a complement but other is, return a non-complement set
+      //containing the intersection of the set of points in this and EXCLUDED from other.
       return new SimpleSet(false, this.points.intersection(other.points));
     }else {
+      //When other is not a complement but this is, return a complement set
+      //EXCLUDING the union of the points EXCLUDED from this and contained in other.
       return new SimpleSet(true, this.points.union(other.points));
     }
   }
