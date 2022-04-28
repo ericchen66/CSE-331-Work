@@ -15,7 +15,7 @@ public class SimpleSet {
   //the set, or be used to easily find the complement of the set. A boolean
   //represents whether or not the set is a complement of a finite set.
   //
-  //RI: points != null && points.getPoints(0)...points.getPoints(n - 1) != (-infty, +infty, or NaN)
+  //RI: points != null && points.getPoints().get(0)...points.getPoints().get(n-1) != (-infty, +infty, or NaN)
   //n = points.size()
   //AF(this):
   //if(complement), then set is R \ {points.getPoints}
