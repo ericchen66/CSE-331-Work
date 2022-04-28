@@ -25,7 +25,17 @@ public class SimpleSetTest {
   /** Tests converting a set to a string. */
   @Test
   public void testToString() {
+    assertTrue(S.toString().equals("{}"));
+    assertTrue(S1.toString().equals("{1.0}"));
+    assertTrue(S12.toString().equals("{1.0, 2.0}"));
+    assertTrue(S123.toString().equals("{1.0, 2.0, 3.0}"));
+    assertFalse(S12.toString().equals("{1, 2}"));
+    assertFalse(S123.toString().equals("R \\ {1.0, 2.0, 3.0}"));
 
+    assertTrue(R.toString().equals("R"));
+    assertTrue(R2.toString().equals("R \\ {2.0}"));
+    assertTrue(R123.toString().equals("R \\ {1.0, 2.0, 3.0}"));
+    assertFalse(R12.toString().equals("{1.0, 2.0}"));
     // TODO: implement this
     
   }

@@ -24,6 +24,7 @@ public class SimpleSet {
   //if(!complement), then set is {points.getPoints}
   private FiniteSet points;
   private boolean complement;
+
   /**
    * Creates a simple set containing only the given points.
    * @param vals Array containing the points to make into a SimpleSet
@@ -109,14 +110,25 @@ public class SimpleSet {
         return "{}";
       }
     }
+
     StringBuilder b = new StringBuilder();
     int i = 0;
+    //Inv: b = points.getPoints.get(0) + ", " + points.getPoints.get(1) + ", "...
+    //points.getPoints.get(i - 1) + ", "
     while(i < this.points.size() - 1){
+      //Every iteration appends a new element from this.points to b
+      //and a ", "
       b.append(this.points.getPoints().get(i));
       b.append(", ");
       i++;
     }
+    //After loop: b = points.getPoints.get(0) + ", " + points.getPoints.get(1) + ", "...
+    //points.getPoints.get(i - 1) + ", " and i = this.points.size() - 1
+    //Appends last element of this.points to b without ", "
     b.append(this.points.getPoints().get(this.points.size() - 1));
+
+    //Returns b with correct symbols per specs. Depends on whether this is a finite
+    //set or the complement of a finite set
     if(this.complement) {
       return "R \\ {" + b.toString() + "}";
     }else{
