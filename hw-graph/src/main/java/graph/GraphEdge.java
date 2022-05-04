@@ -1,7 +1,7 @@
 package graph;
 
 /**
- * Represents an edge connecting two nodes of a directed
+ * Represents an immutable edge connecting two nodes of a directed
  * labeled graph. Each edge has a parent node that it
  * originates from and a child node that it connects
  * the parent to. Each edge is also identifiable by

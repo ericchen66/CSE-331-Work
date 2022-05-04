@@ -1,0 +1,13 @@
+# Tests creating an edge from a node to the same node
+
+# Creates a graph
+CreateGraph graph1
+
+# Adds a node to the graph
+AddNode graph1 node1
+
+# Creates an edge from the node to itself
+AddEdge graph1 node1 node1 edge1
+
+# Lists the child node of the node
+ListChildren graph1 node1

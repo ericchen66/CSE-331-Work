@@ -1,0 +1,17 @@
+# Tests adding two edges from one node of a graph,
+# ensuring the parent and child node are correct.
+# Edges travel to same child
+
+# Creates a graph
+created graph graph1
+
+# Adds two nodes to the graph
+added node node1 to graph1
+added node node2 to graph1
+
+# Creates two edges between the two nodes
+added edge edge1 from node1 to node2 in graph1
+added edge edge2 from node1 to node2 in graph1
+
+# Lists the children of parent node
+the children of node1 in graph1 are: node2(edge1) node2(edge2)

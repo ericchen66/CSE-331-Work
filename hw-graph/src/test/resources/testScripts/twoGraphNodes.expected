@@ -1,0 +1,13 @@
+# Tests adding nodes in two separate graphs
+
+# Creates two graphs
+created graph graph1
+created graph graph2
+
+# Adds one node to both graphs
+added node node1 to graph1
+added node node2 to graph2
+
+# Lists nodes of each graph
+graph1 contains: node1
+graph2 contains: node2

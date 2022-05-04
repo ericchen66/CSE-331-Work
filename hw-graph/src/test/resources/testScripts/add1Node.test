@@ -1,0 +1,10 @@
+# Tests adding one node to a graph
+
+# Creates an empty graph
+CreateGraph graph1
+
+# Adds one node
+AddNode graph1 node1
+
+# Print the nodes in the graph
+ListNodes graph1

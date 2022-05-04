@@ -1,0 +1,19 @@
+# Tests a parent node that has edges to two
+# other nodes. Ensures parent/child relation holds
+# for all nodes
+
+# Creates an empty graph
+CreateGraph graph1
+
+# Adds three nodes to the graph
+AddNode graph1 node1
+AddNode graph1 node2
+AddNode graph1 node3
+
+# Creates two edges, both originating from the same node
+# but connecting to two different nodes
+AddEdge graph1 node1 node2 edge1
+AddEdge graph1 node1 node3 edge2
+
+# Lists the children of the parent node
+ListChildren graph1 node1

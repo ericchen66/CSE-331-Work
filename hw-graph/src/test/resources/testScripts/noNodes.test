@@ -1,0 +1,7 @@
+# Test for the nodes of an empty graph
+
+# Creates an empty graph
+CreateGraph graph1
+
+# Lists the nodes of the empty graph
+ListNodes graph1

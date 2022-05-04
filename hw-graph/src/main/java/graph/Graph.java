@@ -8,11 +8,9 @@ import java.util.List;
  * and a set of edges that connects the nodes. An edge may connect
  * a node to itself or to another node, which makes the second node
  * a child of the first (and the first a parent of the second).
- *
- * Abstract Invariant:
- * In one graph, no two nodes could share the same label, and no two
- * edges could share the same label and have identical parent and
- * identical child nodes.
+ * Graphs will allow for edges connecting a node to itself but not for
+ * two edges with the same label to connect the same two nodes. No two
+ * nodes of one graph may share the same label.
  */
 public class Graph {
 

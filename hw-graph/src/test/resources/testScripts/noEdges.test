@@ -1,0 +1,10 @@
+# Test for edges of a childless node
+
+# Creates an empty graph
+CreateGraph graph1
+
+# Adds a node to the graph
+AddNode graph1 node1
+
+# Lists the children of the node
+ListChildren graph1 node1

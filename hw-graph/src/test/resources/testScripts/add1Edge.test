@@ -1,0 +1,15 @@
+# Tests adding one edge between two nodes of a graph,
+# ensuring the parent and child node are correct
+
+# Creates a graph
+CreateGraph graph1
+
+# Adds two nodes to the graph
+AddNode graph1 node1
+AddNode graph1 node2
+
+# Creates an edge between the two nodes
+AddEdge graph1 node1 node2 edge1
+
+# Lists the child of parent node
+ListChildren graph1 node1

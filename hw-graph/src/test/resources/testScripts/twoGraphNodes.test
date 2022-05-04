@@ -1,0 +1,13 @@
+# Tests adding nodes in two separate graphs
+
+# Creates two graphs
+CreateGraph graph1
+CreateGraph graph2
+
+# Adds one node to both graphs
+AddNode graph1 node1
+AddNode graph2 node2
+
+# Lists nodes of each graph
+ListNodes graph1
+ListNodes graph2
