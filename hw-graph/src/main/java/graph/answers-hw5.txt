@@ -9,7 +9,17 @@ included each one; if not, explain whether you considered additional classes and
 not to include them.
 
 
-TODO: Your answer here!
+I included the three classes that I did because in my mind, they form a hierarchical structure.
+I did not know originally whether I should create a separate class for edges, but I realized that
+their functionality is sufficiently different from nodes that they warrant their own class. The
+top-level class in my design is the Graph class, which depends on the GraphNode and GraphEdge classes
+to form a complete graph from multiple nodes/edges.
+In the Graph class, I included the basic required commands to add a node or create an edge between
+two nodes, but I also thought it would be useful for a client to be able to remove edges/nodes
+if they no longer need them. Since unnecessary objects make operations more difficult for a client
+and take up memory, I added methods for removal as well. Another method I decided to add to Graph
+is path, which finds a path between two nodes of the graph, if possible, without any consideration
+for finding the most efficient path, since I want greater flexibility in my design.
 
 
 ## Part 3
