@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 import java.util.LinkedList;
 import java.util.List;
-
+/** GraphTest is a collection of tests for the Graph class */
 public class GraphTest {
     private static Graph graph1 = new Graph();
     Graph.GraphNode node1 = new Graph.GraphNode("Node1");
@@ -32,6 +32,7 @@ public class GraphTest {
         assertFalse(graph1.path(node3, node1));
     }
 
+    /** Tests Graph's ability to remove a node */
     @Test
     public void testRemoveNode(){
         graph1.addNode(node1);
@@ -45,6 +46,7 @@ public class GraphTest {
         assertFalse(graph1.nodes().contains(node1));
     }
 
+    /** Tests Graph's ability to remove an edge */
     @Test
     public void testRemoveEdge(){
         graph1.addNode(node1);
