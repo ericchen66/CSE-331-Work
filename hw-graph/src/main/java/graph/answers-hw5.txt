@@ -29,4 +29,9 @@ What was your testing strategy for this assignment? How do your script tests and
 differ from each other (if they do), and why?
 
 
-TODO: Your answer here!
+My testing strategy revolves around testing the cases for 0, 1, and multiple (usually 2 or 3)
+nodes or edges. These cases are distinct from each other and acts as separate families of cases.
+If one of these families works properly, that doesn't guarantee the other ones will.
+My JUnit tests test the functionality of methods not incorporated into the Script tests. In the
+Script tests, we already have basic functionality established (adding nodes/edges, which inevitably
+also tests the program's ability to return lists of nodes and child nodes).
