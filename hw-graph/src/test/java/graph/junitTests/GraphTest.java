@@ -16,22 +16,6 @@ public class GraphTest {
     Graph.GraphEdge edge2 = new Graph.GraphEdge(node2, node3, "Edge2");
     Graph.GraphEdge edge3 = new Graph.GraphEdge(node1, node2, "Edge2");
 
-    /** Tests Graph's ability to find a path between two nodes */
-    @Test
-    public void testPath(){
-        graph1.addNode(node1);
-        graph1.addNode(node2);
-        graph1.addNode(node3);
-        graph1.addEdge(edge1);
-        graph1.addEdge(edge2);
-
-        assertTrue(graph1.path(node1, node2));
-        assertTrue(graph1.path(node1, node3));
-        assertFalse(graph1.path(node1, node1));
-        assertFalse(graph1.path(node2, node1));
-        assertFalse(graph1.path(node3, node1));
-    }
-
     /** Tests Graph's ability to remove a node */
     @Test
     public void testRemoveNode(){

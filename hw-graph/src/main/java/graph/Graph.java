@@ -38,10 +38,12 @@ public class Graph {
     }
 
     /**
-     * Creates a directed labeled graph containing no nodes
+     * Creates a directed labeled graph containing no nodes or edges
      */
     public Graph(){
-        throw new RuntimeException("Method not yet implemented");
+        this.nodes = new LinkedList<>();
+        this.edges = new LinkedList<>();
+        checkRep();
     }
 
     /**
@@ -51,14 +53,16 @@ public class Graph {
      * @spec.effects list of nodes in this
      */
     public void addNode(GraphNode n){
-        throw new RuntimeException("Method not yet implemented");
+        checkRep();
+        this.nodes.add(n);
+        checkRep();
     }
 
     /**
      * Removes a node from the graph along with any edges that have
      * the removed node as a parent or child node
      * @param node The node to be removed
-     * @spec.modifies list of nodes in this, if given node is in the graph
+     * @spec.modifies this
      */
     public void removeNode(GraphNode node){
         throw new RuntimeException("Method not yet implemented");
@@ -71,32 +75,46 @@ public class Graph {
      * @spec.effects list of edges in this
      */
     public void addEdge(GraphEdge edge){
-        throw new RuntimeException("Method not yet implemented");
+        checkRep();
+        this.edges.add(edge);
+        checkRep();
     }
 
     /**
      * Removes an edge of the graph
      * @param edge The edge to be removed
-     * @spec.modifies list of edges in this, if given edge is in the graph
+     * @spec.modifies this
      */
     public void removeEdge(GraphEdge edge){
         throw new RuntimeException("Method not yet implemented");
     }
 
     /**
-     * Returns a list of the labels of nodes in the graph
+     * Returns a list of nodes in the graph
      * @return List containing all GraphNode objects in this
      */
     public List<GraphNode> nodes(){
-        throw new RuntimeException("Method not yet implemented");
+        checkRep();
+        List<GraphNode> l = new LinkedList<>();
+        for(int i = 0; i < this.nodes.size(); i++){
+            l.add(this.nodes.get(i));
+        }
+        checkRep();
+        return l;
     }
 
     /**
-     * Returns a list of the labels of edges in the graph
+     * Returns a list of edges in the graph
      * @return List containing all GraphEdge objects in this
      */
     public List<GraphEdge> edges(){
-        throw new RuntimeException("Method not yet implemented");
+        checkRep();
+        List<GraphEdge> l = new LinkedList<>();
+        for(int i = 0; i < this.edges.size(); i++){
+            l.add(this.edges.get(i));
+        }
+        checkRep();
+        return l;
     }
 
     /**
@@ -104,22 +122,19 @@ public class Graph {
      * of a specific node
      * @param node The node whose child nodes will be returned
      * @spec.requires Given node is in the graph and is not null
-     * @return List containing all children GraphNode objects of n
+     * @return Set containing all children GraphNode objects of n
      */
-    public List<GraphNode> childrenOfNode(GraphNode node){
-        throw new RuntimeException("Method not yet implemented");
-    }
-
-    /**
-     * Returns a boolean representing whether a path exists between
-     * two nodes
-     * @param start The node to begin at
-     * @param end The node we want to arrive at
-     * @spec.requires Given nodes are in the graph and are not null
-     * @return True if there is a path between the two nodes, false otherwise
-     */
-    public boolean path(GraphNode start, GraphNode end){
-        throw new RuntimeException("Method not yet implemented");
+    public Set<GraphNode> childrenOfNode(GraphNode node){
+        checkRep();
+        Set<GraphNode> children = new TreeSet<>();
+        if(this.nodes.contains(node)){
+            GraphNode parent = this.nodes.get(this.nodes.indexOf(node));
+            for(int i = 0; i < parent.connections.size(); i++){
+                children.add(parent.connections.get(i).end);
+            }
+        }
+        checkRep();
+        return children;
     }
 
     /**
@@ -129,13 +144,14 @@ public class Graph {
      * it. Each node could be identified using a label.
      */
     public static class GraphNode {
-
+        private String data;
+        private List<GraphEdge> connections;
         /**
          * Creates a node containing a given label
          * @param data The label that identifies the new node
          */
         public GraphNode(String data){
-            throw new RuntimeException("Method not yet implemented");
+            this.data = data;
         }
     }
 
@@ -147,6 +163,8 @@ public class Graph {
      * a label.
      */
     public static class GraphEdge {
+        private String data;
+        private GraphNode end;
 
         /**
          * Creates an edge originating and ending at given nodes,
@@ -156,7 +174,8 @@ public class Graph {
          * @param data Label of the new node
          */
         public GraphEdge(GraphNode start, GraphNode end, String data){
-            throw new RuntimeException("Method not yet implemented");
+            this.data = data;
+            start.connections.add(this);
         }
     }
 }
