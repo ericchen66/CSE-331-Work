@@ -11,10 +11,10 @@
 
 package graph.scriptTestRunner;
 
+import graph.Graph;
+
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 /**
  * This class implements a testing driver which reads test scripts
@@ -30,7 +30,7 @@ public class GraphTestDriver {
      * String -> Graph: maps the names of graphs to the actual graph
      **/
     // TODO for the student: Uncomment and parameterize the next line correctly:
-    //private final Map<String, _______> graphs = new HashMap<String, ________>();
+    private final Map<String, Graph> graphs = new HashMap<String, Graph>();
     private final PrintWriter output;
     private final BufferedReader input;
 
@@ -116,7 +116,8 @@ public class GraphTestDriver {
 
     private void createGraph(String graphName) {
         // TODO Insert your code here.
-
+        graphs.put(graphName, new Graph());
+        output.println("created graph " + graphName);
         // graphs.put(graphName, ___);
         // output.println(...);
     }
@@ -134,12 +135,15 @@ public class GraphTestDriver {
 
     private void addNode(String graphName, String nodeName) {
         // TODO Insert your code here.
-
+        Graph g = graphs.get(graphName);
+        Graph.GraphNode n = new Graph.GraphNode(nodeName);
+        g.addNode(n);
+        output.println("added node " + nodeName + " to " + graphName);
         // ___ = graphs.get(graphName);
         // output.println(...);
     }
 
-    private void addEdge(List<String> arguments) {
+    private void addEdge(List<String> arguments) throws NoSuchFieldException {
         if(arguments.size() != 4) {
             throw new CommandException("Bad arguments to AddEdge: " + arguments);
         }
@@ -153,8 +157,13 @@ public class GraphTestDriver {
     }
 
     private void addEdge(String graphName, String parentName, String childName,
-                         String edgeLabel) {
+                         String edgeLabel) throws NoSuchFieldException{
         // TODO Insert your code here.
+        Graph g = graphs.get(graphName);
+        Graph.GraphNode parent = g.getNode(parentName);
+        Graph.GraphNode child = g.getNode(childName);
+        output.println("added edge " + edgeLabel + " from " + parentName + " to " + childName + " in " + graphName);
+        Graph.GraphEdge e = new Graph.GraphEdge(parent, child, edgeLabel);
 
         // ___ = graphs.get(graphName);
         // output.println(...);
@@ -171,12 +180,22 @@ public class GraphTestDriver {
 
     private void listNodes(String graphName) {
         // TODO Insert your code here.
-
+        Graph g = graphs.get(graphName);
+        List<Graph.GraphNode> nodes = g.nodes();
+        SortedSet<String> sortedNodeNames = new TreeSet<>();
+        output.print(graphName + " contains:");
+        for(int i = 0; i < nodes.size(); i++){
+            sortedNodeNames.add(nodes.get(i).getData());
+        }
+        for(String s : sortedNodeNames){
+            output.print(" " + s);
+        }
+        output.println();
         // ___ = graphs.get(graphName);
         // output.println(...);
     }
 
-    private void listChildren(List<String> arguments) {
+    private void listChildren(List<String> arguments) throws NoSuchFieldException{
         if(arguments.size() != 2) {
             throw new CommandException("Bad arguments to ListChildren: " + arguments);
         }
@@ -186,8 +205,24 @@ public class GraphTestDriver {
         listChildren(graphName, parentName);
     }
 
-    private void listChildren(String graphName, String parentName) {
+    private void listChildren(String graphName, String parentName) throws NoSuchFieldException{
         // TODO Insert your code here.
+        output.print("the children of " + parentName + " in " + graphName + " are:");
+        Graph g = graphs.get(graphName);
+        Graph.GraphNode parent = g.getNode(parentName);
+        List<Graph.GraphEdge> edges = parent.getEdges();
+
+        Map<String, String> childrenAndEdges= new TreeMap<>();
+        for(int i = 0; i < edges.size(); i++) {
+            childrenAndEdges.put(edges.get(i).getData(), edges.get(i).getEnd().getData());
+        }
+
+        //SortedSet<String> sortedNames = new TreeSet<>();
+        //SortedSet<String> sortedEdgeNames = new TreeSet<>();
+        for(String edgeLabel : childrenAndEdges.keySet()){
+            output.print(" " + childrenAndEdges.get(edgeLabel) + "(" + edgeLabel + ")");
+        }
+        output.println();
 
         // ___ = graphs.get(graphName);
         // output.println(...);

@@ -59,16 +59,6 @@ public class Graph {
     }
 
     /**
-     * Removes a node from the graph along with any edges that have
-     * the removed node as a parent or child node
-     * @param node The node to be removed
-     * @spec.modifies this
-     */
-    public void removeNode(GraphNode node){
-        throw new RuntimeException("Method not yet implemented");
-    }
-
-    /**
      * Adds an edge to the graph directly
      * @param edge The edge to be added
      * @spec.requires Given edge is not null
@@ -78,15 +68,6 @@ public class Graph {
         checkRep();
         this.edges.add(edge);
         checkRep();
-    }
-
-    /**
-     * Removes an edge of the graph
-     * @param edge The edge to be removed
-     * @spec.modifies this
-     */
-    public void removeEdge(GraphEdge edge){
-        throw new RuntimeException("Method not yet implemented");
     }
 
     /**
@@ -137,6 +118,29 @@ public class Graph {
         return children;
     }
 
+    public GraphNode getNode(String name) throws NoSuchFieldException{
+        checkRep();
+        for(int i = 0; i < this.nodes.size(); i++){
+            if(this.nodes.get(i).data.equals(name)){
+                return this.nodes.get(i);
+            }
+        }
+        checkRep();
+        throw new NoSuchFieldException("This graph does not contain a node with this data");
+    }
+
+    public GraphEdge getEdge(String name, GraphNode start, GraphNode end) throws NoSuchFieldException{
+        checkRep();
+        for(int i = 0; i < this.edges.size(); i++){
+            GraphEdge e = this.edges.get(i);
+            if(e.data.equals(name) && e.end.equals(end) && start.connections.contains(e)){
+                return e;
+            }
+        }
+        checkRep();
+        throw new NoSuchFieldException("This graph does not contain an edge with this data, parent, and child");
+    }
+
     /**
      * Represents a node of a directed labeled graph. A node
      * could have an unlimited number of edges originating from
@@ -146,12 +150,34 @@ public class Graph {
     public static class GraphNode {
         private String data;
         private List<GraphEdge> connections;
+
         /**
          * Creates a node containing a given label
          * @param data The label that identifies the new node
          */
         public GraphNode(String data){
             this.data = data;
+            this.connections = new LinkedList<>();
+        }
+
+        /**
+         * Returns the label of the node
+         * @return this.data
+         */
+        public String getData(){
+            return this.data;
+        }
+
+        /**
+         * Returns every outgoing edge of this
+         * @return List containing the outgoing edges of this
+         */
+        public List<GraphEdge> getEdges(){
+            List<GraphEdge> l = new LinkedList<>();
+            for(int i = 0; i < this.connections.size(); i++){
+                l.add(this.connections.get(i));
+            }
+            return l;
         }
     }
 
@@ -175,7 +201,17 @@ public class Graph {
          */
         public GraphEdge(GraphNode start, GraphNode end, String data){
             this.data = data;
+            this.end = end;
             start.connections.add(this);
+        }
+
+        public String getData(){
+            return this.data;
+        }
+
+
+        public GraphNode getEnd(){
+            return this.end;
         }
     }
 }

@@ -3,7 +3,7 @@
 # Creates an empty graph
 created graph graph1
 
-# Adds one node
+# Adds two nodes
 added node node2 to graph1
 added node node1 to graph1
 

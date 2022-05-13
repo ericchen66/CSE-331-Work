@@ -15,36 +15,4 @@ public class GraphTest {
     Graph.GraphEdge edge1 = new Graph.GraphEdge(node1, node2, "Edge1");
     Graph.GraphEdge edge2 = new Graph.GraphEdge(node2, node3, "Edge2");
     Graph.GraphEdge edge3 = new Graph.GraphEdge(node1, node2, "Edge2");
-
-    /** Tests Graph's ability to remove a node */
-    @Test
-    public void testRemoveNode(){
-        graph1.addNode(node1);
-        graph1.addNode(node2);
-        graph1.addNode(node3);
-
-        graph1.removeNode(node1);
-
-        assertTrue(graph1.nodes().contains(node3));
-        assertTrue(graph1.nodes().contains(node2));
-        assertFalse(graph1.nodes().contains(node1));
-    }
-
-    /** Tests Graph's ability to remove an edge */
-    @Test
-    public void testRemoveEdge(){
-        graph1.addNode(node1);
-        graph1.addNode(node2);
-        graph1.addNode(node3);
-        graph1.addEdge(edge1);
-        graph1.addEdge(edge2);
-        graph1.addEdge(edge3);
-
-        graph1.removeEdge(edge2);
-
-        assertTrue(graph1.edges().contains(edge1));
-        assertTrue(graph1.edges().contains(edge3));
-        assertFalse(graph1.edges().contains(edge2));
-        assertFalse(graph1.childrenOfNode(node2).contains(node3));
-    }
 }
