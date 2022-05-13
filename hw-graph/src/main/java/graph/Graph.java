@@ -12,6 +12,30 @@ import java.util.*;
  * nodes of one graph may share the same label.
  */
 public class Graph {
+    //Nodes in the graph are stored in a List of GraphNode objects while edges
+    //are stored in a List of GraphEdge objects.
+    //RI: this.nodes != null, this.edges != null, this.nodes.get(0), ..., this.nodes.get(n1) != null,
+    //this.edges.get(0), ..., this.edges.get(n2) != null, n1 = this.nodes.size(), n2 = this.edges.size()
+    //AF(this):
+    //Graph nodes = this.nodes
+    //Graph edges = this.edges
+    private List<GraphNode> nodes;
+    private List<GraphEdge> edges;
+    private static final boolean DEBUG = false;
+
+    //Private helper method to check the representation invariant (RI) holds
+    private void checkRep(){
+        assert this.nodes != null : "this.nodes is null";
+        assert this.edges != null : "this.edges is null";
+        if(DEBUG){
+            for(int i = 0; i < this.nodes.size(); i++){
+                assert this.nodes.get(i) != null : "this.nodes has a null element";
+            }
+            for(int i = 0; i < this.edges.size(); i++){
+                assert this.edges.get(i) != null : "this.edges has a null element";
+            }
+        }
+    }
 
     /**
      * Creates a directed labeled graph containing no nodes

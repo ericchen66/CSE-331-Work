@@ -17,14 +17,30 @@ A few examples of possible Graph representations:
 representations listed above (for example, in terms of runtime complexity, space
 complexity, or ease of implementation).
 
+A. This representation leaves a lot of changeability to the code since nodes and edges are
+not coupled together. However, it requires the usage of a "God class" that performs most of
+the computations of the Graph. Runtime complexity could also be an issue since nodes and edges
+contain little information about one another.
 
+B. This representation offers ease when searching for child nodes or traveling between nodes, as
+each node directly contains information about adjacent nodes. A drawback is that it might be more
+difficult to generate a "bigger picture" of the graph, such as a list of edges or incoming edges
+of a certain node, as methods performing those tasks may be difficult to implement.
 
+C. This representation may be more complex to implement than the other representations, as individual
+nodes become less important than node pairs, and it is more difficult for most implementors to think
+of the Graph without thinking in terms of individual nodes and edges. But since less data needs to
+be stored directly about nodes annd edges, this Graph representation could reduce space complexity.
+Along with the second implementation, a pathfinding function could also be less costly to implement.
 
 2. In two to three sentences, describe the representation you chose and explain why you
 chose it. If you chose to use a different representation than one of the three we described
 above, be sure to list its advantages and disadvantages, too.
 
-
+My Graph is represented as both a collection of nodes and edges, as well as an adjacency list for
+each individual node. This way, I can both get a big picture of the graph and easily implement
+methods to find child nodes. However, it may be more costly to add new nodes/edges, as more data needs
+to be stored in each node.
 
 
 ## Part 4
