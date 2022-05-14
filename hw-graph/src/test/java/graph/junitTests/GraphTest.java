@@ -15,6 +15,7 @@ public class GraphTest {
     Graph.GraphEdge edge3 = new Graph.GraphEdge(node1, node2, "Edge2");
     Graph.GraphEdge edge4 = new Graph.GraphEdge(node1, node1, "Edge4");
 
+    /** Tests retrieving an edge of the graph through its label, start, and end */
     @Test
     public void testGetEdge() throws NoSuchFieldException{
         graph1.addNode(node1);
@@ -31,16 +32,19 @@ public class GraphTest {
         assertEquals(edge4, graph1.getEdge(node1, node1, "Edge4"));
     }
 
+    /** Tests getEdge method throws an exception */
     @Test(expected = NoSuchFieldException.class)
     public void testGetEdgeThrows() throws NoSuchFieldException{
         graph1.getEdge(node1, node2, "Edge2");
     }
 
+    /** Tests getNode method throws an exception */
     @Test(expected = NoSuchFieldException.class)
     public void testGetNodeThrows() throws NoSuchFieldException{
         graph1.getNode("Node11");
     }
 
+    /** Tests returning children of a node */
     @Test
     public void testChildrenOfNode(){
         graph1.addNode(node1);
