@@ -1,0 +1,28 @@
+# Tests adding ten edges from one node of a graph,
+# ensuring the parent and child node are correct.
+# Edges travel to different children
+
+# Creates a graph
+created graph graph1
+
+# Adds five nodes to the graph
+added node node3 to graph1
+added node node2 to graph1
+added node node1 to graph1
+added node node5 to graph1
+added node node4 to graph1
+
+# Creates ten edges from node1
+added edge edge1 from node1 to node2 in graph1
+added edge edge3 from node1 to node2 in graph1
+added edge edge2 from node1 to node2 in graph1
+added edge edge2 from node1 to node3 in graph1
+added edge edge1 from node1 to node5 in graph1
+added edge edge1 from node1 to node3 in graph1
+added edge edge11 from node1 to node5 in graph1
+added edge edge2 from node1 to node1 in graph1
+added edge edge1 from node1 to node4 in graph1
+added edge edge2 from node1 to node4 in graph1
+
+# Lists the children of parent node
+the children of node1 in graph1 are: node1(edge2) node2(edge1) node2(edge2) node2(edge3) node3(edge1) node3(edge2) node4(edge1) node4(edge2) node5(edge1) node5(edge11)

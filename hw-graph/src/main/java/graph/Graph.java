@@ -21,7 +21,7 @@ public class Graph {
     //Graph edges = this.edges
     private List<GraphNode> nodes;
     private List<GraphEdge> edges;
-    private static final boolean DEBUG = false;
+    private static final boolean DEBUG = true;
 
     //Private helper method to check the representation invariant (RI) holds
     private void checkRep(){
@@ -49,7 +49,8 @@ public class Graph {
     /**
      * Adds a node to the graph directly
      * @param n The node being added to the graph
-     * @spec.requires n is not null
+     * @spec.requires n is not null and not already in the graph
+     * @spec.modifies this.nodes
      * @spec.effects list of nodes in this
      */
     public void addNode(GraphNode n){
@@ -61,8 +62,9 @@ public class Graph {
     /**
      * Adds an edge to the graph directly
      * @param edge The edge to be added
-     * @spec.requires Given edge is not null
-     * @spec.effects list of edges in this
+     * @spec.requires Given edge is not null and not already in the graph
+     * @spec.modifies this.edges
+     * @spec.effects adds given edge to list of edges in this
      */
     public void addEdge(GraphEdge edge){
         checkRep();
@@ -99,15 +101,15 @@ public class Graph {
     }
 
     /**
-     * Returns a list of the nodes that are child nodes
-     * of a specific node
+     * Returns a set of the nodes that are child nodes
+     * of a specific node. Returned set contains no repeated nodes
      * @param node The node whose child nodes will be returned
      * @spec.requires Given node is in the graph and is not null
      * @return Set containing all children GraphNode objects of n
      */
     public Set<GraphNode> childrenOfNode(GraphNode node){
         checkRep();
-        Set<GraphNode> children = new TreeSet<>();
+        Set<GraphNode> children = new HashSet<>();
         if(this.nodes.contains(node)){
             GraphNode parent = this.nodes.get(this.nodes.indexOf(node));
             for(int i = 0; i < parent.connections.size(); i++){
@@ -118,6 +120,12 @@ public class Graph {
         return children;
     }
 
+    /**
+     * Returns the GraphNode in the graph with given label
+     * @param name Label of the desired node
+     * @return a GraphNode object with given label
+     * @throws NoSuchFieldException if name is not a node label stored in this
+     */
     public GraphNode getNode(String name) throws NoSuchFieldException{
         checkRep();
         for(int i = 0; i < this.nodes.size(); i++){
@@ -129,7 +137,16 @@ public class Graph {
         throw new NoSuchFieldException("This graph does not contain a node with this data");
     }
 
-    public GraphEdge getEdge(String name, GraphNode start, GraphNode end) throws NoSuchFieldException{
+    /**
+     * Returns the GraphEdge in the graph with given starting node, ending node, and label
+     * @param name Label of the desired edge
+     * @param start The starting node of the desired edge
+     * @param end The ending node of the desired edge
+     * @return a GraphEdge object with given starting node, ending node, and label
+     * @throws NoSuchFieldException if given name, starting node, and ending node
+     * does not represent an edge stored in this
+     */
+    public GraphEdge getEdge(GraphNode start, GraphNode end, String name) throws NoSuchFieldException{
         checkRep();
         for(int i = 0; i < this.edges.size(); i++){
             GraphEdge e = this.edges.get(i);
@@ -148,6 +165,10 @@ public class Graph {
      * it. Each node could be identified using a label.
      */
     public static class GraphNode {
+        //RI: this.connections != null, this.connections(0) != this.connections(1) != ... != this.connections(n)
+        //AF(this):
+        //Label = this.data
+        //Outgoing edges = this.connections
         private String data;
         private List<GraphEdge> connections;
 
@@ -169,7 +190,7 @@ public class Graph {
         }
 
         /**
-         * Returns every outgoing edge of this
+         * Returns every outgoing edge of this node
          * @return List containing the outgoing edges of this
          */
         public List<GraphEdge> getEdges(){
@@ -189,6 +210,10 @@ public class Graph {
      * a label.
      */
     public static class GraphEdge {
+        //RI: this.end != null
+        //AF(this):
+        //Label = this.data
+        //Ending node = this.end
         private String data;
         private GraphNode end;
 
@@ -205,11 +230,18 @@ public class Graph {
             start.connections.add(this);
         }
 
+        /**
+         * Returns the label of the edge
+         * @return this.data
+         */
         public String getData(){
             return this.data;
         }
 
-
+        /**
+         * Returns the destination node of the edge
+         * @return this.end
+         */
         public GraphNode getEnd(){
             return this.end;
         }

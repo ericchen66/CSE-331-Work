@@ -1,0 +1,28 @@
+# Tests adding ten edges from one node of a graph,
+# ensuring the parent and child node are correct.
+# Edges travel to different children
+
+# Creates a graph
+CreateGraph graph1
+
+# Adds five nodes to the graph
+AddNode graph1 node3
+AddNode graph1 node2
+AddNode graph1 node1
+AddNode graph1 node5
+AddNode graph1 node4
+
+# Creates ten edges from node1
+AddEdge graph1 node1 node2 edge1
+AddEdge graph1 node1 node2 edge3
+AddEdge graph1 node1 node2 edge2
+AddEdge graph1 node1 node3 edge2
+AddEdge graph1 node1 node5 edge1
+AddEdge graph1 node1 node3 edge1
+AddEdge graph1 node1 node5 edge11
+AddEdge graph1 node1 node1 edge2
+AddEdge graph1 node1 node4 edge1
+AddEdge graph1 node1 node4 edge2
+
+# Lists the children of parent node
+ListChildren graph1 node1

@@ -51,11 +51,17 @@ to be stored in each node.
 1. Describe any new tests you added and why you added them, or why you feel that your original
 tests alone are sufficient.
 
-
+I added tests for getting an edge from the label and listing the children of a given node. I added
+both tests because my script tests did not capture the behavior of those methods. I also checked to
+see that my methods for returning a node/edge from a label threw an exception when invalid arguments
+were passed in.
 
 
 2. Did you make any changes to your specifications as you were implementing your Graph? (yes/no)
 If yes, describe your changes and why you made them.
-
+I did not make changes to my spec, however, I removed the ability for my Graph class to find a path
+and remove nodes/edges, as I was not supposed to implement a pathfinder method, and removal methods
+would prove difficult to implement given my current implementation. Consequently, I also removed JUnit tests for
+those methods
 
 
