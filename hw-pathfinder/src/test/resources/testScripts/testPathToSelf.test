@@ -1,0 +1,8 @@
+# Tests Dijkstra's algorithm for a node
+# with a path to itself
+
+CreateGraph simpleGraph
+
+AddNode simpleGraph A
+
+FindPath simpleGraph A A

@@ -198,7 +198,7 @@ public class PathfinderTestDriver {
 
         SortedSet<String> sortedChildren = new TreeSet<>();
         for(int i = 0; i < edges.size(); i++) {
-            sortedChildren.add(edges.get(i).getEnd().getData() + "(" + edges.get(i).getData() + ")");
+            sortedChildren.add(edges.get(i).getEnd().getData() + "(" + String.format("%.3f", edges.get(i).getData()) + ")");
         }
 
         for(String labels : sortedChildren){

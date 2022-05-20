@@ -1,0 +1,12 @@
+# Tests Dijkstra's algorithm when there is no
+# path between two nodes
+
+CreateGraph simpleGraph
+
+AddNode simpleGraph A
+AddNode simpleGraph B
+AddNode simpleGraph C
+
+AddEdge simpleGraph A B 1.0
+
+FindPath simpleGraph A C
