@@ -20,7 +20,7 @@ import java.util.List;
  * Path#getStart() and Path#getEnd(). Also contains a cached
  * version of the total cost along this path, for efficient repeated access.
  */
-public class Path<T> implements Iterable<Path<T>.Segment> {
+public class Path<T> implements Iterable<Path<T>.Segment>, Comparable<Path<T>>{
 
     // AF(this) =
     //      first T in the path => start
@@ -76,10 +76,10 @@ public class Path<T> implements Iterable<Path<T>.Segment> {
      * @param segmentCost The cost of the segment being added to the end of this path.
      * @return A new path representing the current path with the given segment appended to the end.
      */
-    public Path extend(T newEnd, double segmentCost) {
+    public Path<T> extend(T newEnd, double segmentCost) {
         checkRep();
         //
-        Path extendedPath = new Path(start);
+        Path<T> extendedPath = new Path<>(start);
         extendedPath.path.addAll(this.path);
         extendedPath.path.add(new Segment(this.getEnd(), newEnd, segmentCost));
         extendedPath.cost = this.cost + segmentCost;
@@ -135,7 +135,7 @@ public class Path<T> implements Iterable<Path<T>.Segment> {
             }
 
             @Override
-            public Path.Segment next() {
+            public Segment next() {
                 return backingIterator.next();
             }
 
@@ -189,6 +189,10 @@ public class Path<T> implements Iterable<Path<T>.Segment> {
             }
         }
         return true;
+    }
+
+    public int compareTo(Path<T> other){
+        return (int)Math.round(this.cost - other.cost);
     }
 
     @Override
