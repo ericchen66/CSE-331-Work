@@ -11,7 +11,7 @@ import java.util.*;
  * two edges with the same label to connect the same two nodes. No two
  * nodes of one graph may share the same label.
  */
-public class Graph {
+public class Graph<TNode, TEdge>{
     //Nodes in the graph are stored in a List of GraphNode objects while edges
     //are stored in a List of GraphEdge objects.
     //RI: this.nodes != null, this.edges != null, this.nodes.get(0), ..., this.nodes.get(n1) != null,
@@ -122,14 +122,14 @@ public class Graph {
 
     /**
      * Returns the GraphNode in the graph with given label
-     * @param name Label of the desired node
+     * @param data Label of the desired node
      * @return a GraphNode object with given label
      * @throws NoSuchFieldException if name is not a node label stored in this
      */
-    public GraphNode getNode(String name) throws NoSuchFieldException{
+    public GraphNode getNode(TNode data) throws NoSuchFieldException{
         checkRep();
         for(int i = 0; i < this.nodes.size(); i++){
-            if(this.nodes.get(i).data.equals(name)){
+            if(this.nodes.get(i).data.equals(data)){
                 return this.nodes.get(i);
             }
         }
@@ -139,18 +139,18 @@ public class Graph {
 
     /**
      * Returns the GraphEdge in the graph with given starting node, ending node, and label
-     * @param name Label of the desired edge
+     * @param data Label of the desired edge
      * @param start The starting node of the desired edge
      * @param end The ending node of the desired edge
      * @return a GraphEdge object with given starting node, ending node, and label
      * @throws NoSuchFieldException if given name, starting node, and ending node
      * does not represent an edge stored in this
      */
-    public GraphEdge getEdge(GraphNode start, GraphNode end, String name) throws NoSuchFieldException{
+    public GraphEdge getEdge(GraphNode start, GraphNode end, TEdge data) throws NoSuchFieldException{
         checkRep();
         for(int i = 0; i < this.edges.size(); i++){
             GraphEdge e = this.edges.get(i);
-            if(e.data.equals(name) && e.end.equals(end) && start.connections.contains(e)){
+            if(e.data.equals(data) && e.end.equals(end) && start.connections.contains(e)){
                 return e;
             }
         }
@@ -164,19 +164,19 @@ public class Graph {
      * it and have an unlimited number of edges connecting to
      * it. Each node could be identified using a label.
      */
-    public static class GraphNode {
+    public class GraphNode{
         //RI: this.connections != null, this.connections(0) != this.connections(1) != ... != this.connections(n)
         //AF(this):
         //Label = this.data
         //Outgoing edges = this.connections
-        private String data;
+        private TNode data;
         private List<GraphEdge> connections;
 
         /**
          * Creates a node containing a given label
          * @param data The label that identifies the new node
          */
-        public GraphNode(String data){
+        public GraphNode(TNode data){
             this.data = data;
             this.connections = new LinkedList<>();
         }
@@ -185,7 +185,7 @@ public class Graph {
          * Returns the label of the node
          * @return this.data
          */
-        public String getData(){
+        public TNode getData(){
             return this.data;
         }
 
@@ -209,12 +209,12 @@ public class Graph {
      * the parent to. Each edge is also identifiable by
      * a label.
      */
-    public static class GraphEdge {
+    public class GraphEdge {
         //RI: this.end != null
         //AF(this):
         //Label = this.data
         //Ending node = this.end
-        private String data;
+        private TEdge data;
         private GraphNode end;
 
         /**
@@ -224,7 +224,7 @@ public class Graph {
          * @param end Node that the new edge will travel to
          * @param data Label of the new node
          */
-        public GraphEdge(GraphNode start, GraphNode end, String data){
+        public GraphEdge(GraphNode start, GraphNode end, TEdge data){
             this.data = data;
             this.end = end;
             start.connections.add(this);
@@ -234,7 +234,7 @@ public class Graph {
          * Returns the label of the edge
          * @return this.data
          */
-        public String getData(){
+        public TEdge getData(){
             return this.data;
         }
 

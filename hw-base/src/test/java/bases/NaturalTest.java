@@ -118,7 +118,7 @@ public class NaturalTest {
       0, 1, 2, 3, 5, 10, 15, 17, 19, 29, 89, 99, 100, 120, 121, 150, 151,
       202, 321, 351, 399, 500, 843, 999
   };
-  
+
   /** Tests adding numbers */
   @Test
   public void testPlus() {
@@ -245,11 +245,7 @@ public class NaturalTest {
       }
     }
   }
-  @Test
-  public void testTwoBase(){
-    Natural n = new Natural(2, 135);
-    System.out.println(n.toBase(10).toString());
-  }
+
   /** Tests converting numbers between bases. */
   @Test
   public void testToBase() {

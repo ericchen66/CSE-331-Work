@@ -6,14 +6,14 @@ import static org.junit.Assert.*;
 
 /** GraphTest is a collection of tests for the Graph class */
 public class GraphTest {
-    private static Graph graph1 = new Graph();
-    Graph.GraphNode node1 = new Graph.GraphNode("Node1");
-    Graph.GraphNode node2 = new Graph.GraphNode("Node2");
-    Graph.GraphNode node3 = new Graph.GraphNode("Node3");
-    Graph.GraphEdge edge1 = new Graph.GraphEdge(node1, node2, "Edge1");
-    Graph.GraphEdge edge2 = new Graph.GraphEdge(node2, node3, "Edge2");
-    Graph.GraphEdge edge3 = new Graph.GraphEdge(node1, node2, "Edge2");
-    Graph.GraphEdge edge4 = new Graph.GraphEdge(node1, node1, "Edge4");
+    private static Graph<String, String> graph1 = new Graph<>();
+    Graph<String, String>.GraphNode node1 = graph1.new GraphNode("Node1");
+    Graph<String, String>.GraphNode node2 = graph1.new GraphNode("Node2");
+    Graph<String, String>.GraphNode node3 = graph1.new GraphNode("Node3");
+    Graph<String, String>.GraphEdge edge1 = graph1.new GraphEdge(node1, node2, "Edge1");
+    Graph<String, String>.GraphEdge edge2 = graph1.new GraphEdge(node2, node3, "Edge2");
+    Graph<String, String>.GraphEdge edge3 = graph1.new GraphEdge(node1, node2, "Edge2");
+    Graph<String, String>.GraphEdge edge4 = graph1.new GraphEdge(node1, node1, "Edge4");
 
     /** Tests retrieving an edge of the graph through its label, start, and end */
     @Test

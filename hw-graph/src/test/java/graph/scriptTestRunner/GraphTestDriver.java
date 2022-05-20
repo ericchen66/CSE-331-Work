@@ -30,7 +30,7 @@ public class GraphTestDriver {
      * String -> Graph: maps the names of graphs to the actual graph
      **/
     // TODO for the student: Uncomment and parameterize the next line correctly:
-    private final Map<String, Graph> graphs = new HashMap<String, Graph>();
+    private final Map<String, Graph<String, String>> graphs = new HashMap<>();
     private final PrintWriter output;
     private final BufferedReader input;
 
@@ -115,7 +115,7 @@ public class GraphTestDriver {
     }
 
     private void createGraph(String graphName) {
-        graphs.put(graphName, new Graph());
+        graphs.put(graphName, new Graph<>());
         output.println("created graph " + graphName);
     }
 
@@ -131,8 +131,8 @@ public class GraphTestDriver {
     }
 
     private void addNode(String graphName, String nodeName) {
-        Graph g = graphs.get(graphName);
-        Graph.GraphNode n = new Graph.GraphNode(nodeName);
+        Graph<String, String> g = graphs.get(graphName);
+        Graph<String, String>.GraphNode n = g.new GraphNode(nodeName);
         g.addNode(n);
         output.println("added node " + nodeName + " to " + graphName);
     }
@@ -152,10 +152,10 @@ public class GraphTestDriver {
 
     private void addEdge(String graphName, String parentName, String childName,
                          String edgeLabel) throws NoSuchFieldException{
-        Graph g = graphs.get(graphName);
-        Graph.GraphNode parent = g.getNode(parentName);
-        Graph.GraphNode child = g.getNode(childName);
-        Graph.GraphEdge e = new Graph.GraphEdge(parent, child, edgeLabel);
+        Graph<String, String> g = graphs.get(graphName);
+        Graph<String, String>.GraphNode parent = g.getNode(parentName);
+        Graph<String, String>.GraphNode child = g.getNode(childName);
+        Graph<String, String>.GraphEdge e = g.new GraphEdge(parent, child, edgeLabel);
         g.addEdge(e);
         output.println("added edge " + edgeLabel + " from " + parentName + " to " + childName + " in " + graphName);
     }
@@ -171,8 +171,8 @@ public class GraphTestDriver {
 
     private void listNodes(String graphName) {
 
-        Graph g = graphs.get(graphName);
-        List<Graph.GraphNode> nodes = g.nodes();
+        Graph<String, String> g = graphs.get(graphName);
+        List<Graph<String, String>.GraphNode> nodes = g.nodes();
         SortedSet<String> sortedNodeNames = new TreeSet<>();
         output.print(graphName + " contains:");
         for(int i = 0; i < nodes.size(); i++){
@@ -198,9 +198,9 @@ public class GraphTestDriver {
     private void listChildren(String graphName, String parentName) throws NoSuchFieldException{
 
         output.print("the children of " + parentName + " in " + graphName + " are:");
-        Graph g = graphs.get(graphName);
-        Graph.GraphNode parent = g.getNode(parentName);
-        List<Graph.GraphEdge> edges = parent.getEdges();
+        Graph<String, String> g = graphs.get(graphName);
+        Graph<String, String>.GraphNode parent = g.getNode(parentName);
+        List<Graph<String, String>.GraphEdge> edges = parent.getEdges();
 
         SortedSet<String> sortedChildren = new TreeSet<>();
         for(int i = 0; i < edges.size(); i++) {

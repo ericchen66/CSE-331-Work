@@ -1,2 +1,4 @@
 Briefly list any changes you made to your graph class during hw-pathfinder, and why you made those changes.
 
+I made the GraphEdge and GraphNode classes non-static, as I want them to access the parameters of the outer
+Graph class directly without requiring parameters of their own.
