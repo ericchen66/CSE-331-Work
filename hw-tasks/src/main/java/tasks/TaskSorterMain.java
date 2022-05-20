@@ -14,7 +14,7 @@ public class TaskSorterMain {
      *
      * @param args Arguments to this class, which are never used.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoSuchFieldException {
         Map<String, Task> tasks = new HashMap<>();
         TaskSorter sorter = new TaskSorter();
         Scanner sc = new Scanner(System.in);

@@ -47,7 +47,7 @@ public class TaskSorterTest {
     }
 
     // Helper routine to add all the dependencies between the tasks above.
-    private void addDependencies() {
+    private void addDependencies() throws NoSuchFieldException{
         sorter.addDependency(dep_11_2);
         sorter.addDependency(dep_11_9);
         sorter.addDependency(dep_11_10);
@@ -104,7 +104,7 @@ public class TaskSorterTest {
     }
 
     @Test
-    public void testDependencies() {
+    public void testDependencies() throws NoSuchFieldException{
         addTasks();
 
         assertEquals(new HashSet<Dependency>(),
@@ -138,7 +138,7 @@ public class TaskSorterTest {
     }
 
     @Test
-    public void testSortTasks() {
+    public void testSortTasks() throws NoSuchFieldException{
         // empty graph
         assertEquals(new ArrayList<>(), sorter.sortTasks());
 

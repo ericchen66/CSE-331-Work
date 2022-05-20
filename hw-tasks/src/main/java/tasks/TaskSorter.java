@@ -12,7 +12,7 @@ import java.util.*;
  */
 public class TaskSorter {
 
-    // TODO: Enter private Graph field here with description
+    private Graph<Task, Dependency> td;
     // nodes of Graphs should be Task objects,
     // and edges should be Dependency objects.
     // You don't have to write an abstraction function or
@@ -22,9 +22,7 @@ public class TaskSorter {
      * Creates a new TaskSorter object with no added tasks or dependencies.
      */
     public TaskSorter() {
-        // TODO: Implement creating an empty graph.
-
-        throw new RuntimeException("not yet implemented");
+        td = new Graph<>();
     }
 
     /**
@@ -37,8 +35,9 @@ public class TaskSorter {
     public void addTask(Task t) {
         // TODO: Implement adding a Task as a node.
         //       Do nothing if the task exists already.
-
-        throw new RuntimeException("not yet implemented");
+        if(!td.nodes().contains(t)) {
+            td.addNode(td.new GraphNode(t));
+        }
     }
 
     /**
@@ -47,8 +46,12 @@ public class TaskSorter {
      */
     public Set<Task> getTasks() {
         // TODO: Implement getting all the tasks (nodes) in the graph.
-
-        throw new RuntimeException("not yet implemented");
+        Set<Task> tasks = new HashSet<>();
+        List<Graph<Task, Dependency>.GraphNode> nodes = td.nodes();
+        for(Graph<Task, Dependency>.GraphNode node : nodes){
+            tasks.add(node.getData());
+        }
+        return tasks;
     }
 
     /**
@@ -56,19 +59,20 @@ public class TaskSorter {
      * added, then this will do nothing.
      *
      * @param dep Dependency to be added
-     * @spec.requires dep != null and
-     *     dep's before and after tasks are already added
+     * @spec.requires dep != null
+     * @throws NoSuchFieldException if either dep's before or after tasks are not already added
      */
-    public void addDependency(Dependency dep) {
+    public void addDependency(Dependency dep) throws NoSuchFieldException{
         Task before = dep.getBeforeTask();
         Task after = dep.getAfterTask();
+
+        Graph<Task, Dependency>.GraphEdge newDep = td.new GraphEdge(td.getNode(before), td.getNode(after), dep);
+        td.addEdge(newDep);
 
         // TODO: Implement adding a Dependency as an edge.
         //       Do nothing if the same dependency exists already.
         // NOTE: The edge should go from "before" to "after"!
         //       The tests will not pass if the edges are the other way.
-
-        throw new RuntimeException("not yet implemented");
     }
 
     /**
@@ -76,15 +80,24 @@ public class TaskSorter {
      * prerequisite (the "before" task of the dependency).
      *
      * @param t the task to search for in the dependencies
-     * @spec.requires t != null and t has already been added as a task
+     * @spec.requires t != null
+     * @throws NoSuchFieldException if t has not been added as a task
      * @return set of dependencies with {@code t} as the "before" task
      */
-    public Set<Dependency> getOutgoingDependencies(Task t) {
+    public Set<Dependency> getOutgoingDependencies(Task t) throws NoSuchFieldException{
         // TODO: Implement getting the dependencies that point to the tasks
         //       depending on the given Task (in other words, get the edges
         //       to a node's children in the graph)
 
-        throw new RuntimeException("not yet implemented");
+        Graph<Task, Dependency>.GraphNode task = td.getNode(t);
+        List<Graph<Task, Dependency>.GraphEdge> outgoingEdges = task.getEdges();
+        Set<Dependency> outgoingDependencies = new HashSet<>();
+
+        for(Graph<Task, Dependency>.GraphEdge e : outgoingEdges){
+            outgoingDependencies.add(e.getData());
+        }
+
+        return outgoingDependencies;
     }
 
     /**
@@ -97,7 +110,7 @@ public class TaskSorter {
      * @return List of all tasks that respects the ordering requirements of the
      *     dependencies or null if no such ordering is possible.
      */
-    public List<Task> sortTasks() {
+    public List<Task> sortTasks() throws NoSuchFieldException{
         List<Task> tasks = new ArrayList<>(getTasks());
         Set<Task> visited = new HashSet<>();
         Stack<Task> taskStack = new Stack<>();
@@ -119,7 +132,7 @@ public class TaskSorter {
     // an order is possible. If different Tasks can be done in any order and still satisfy the dependencies,
     // addChain first adds the Tasks with alphabetically later names. If a cycle is detected in
     // the dependencies, than returns true, otherwise returns false.
-    private boolean dfs(Task start, Set<Task> visited, Stack<Task> taskStack) {
+    private boolean dfs(Task start, Set<Task> visited, Stack<Task> taskStack) throws NoSuchFieldException{
         Set<Task> localVisited = new HashSet<>();
         Stack<Task> dfsStack = new Stack<>();
         Stack<Task> recordStack = new Stack<>();
