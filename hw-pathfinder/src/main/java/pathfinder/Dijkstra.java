@@ -57,7 +57,7 @@ public class Dijkstra<T> {
      * Finds and returns the minimum-cost path between this.start and
      * this.dest
      * @spec.modifies this.active, this.finished
-     * @return Path<T> representing the minimum-cost path between this.start and this.dest,
+     * @return Path representing the minimum-cost path between this.start and this.dest,
      * null if a path does not exist between this.start and this.dest.
      */
     public Path<T> findMinPath(){
