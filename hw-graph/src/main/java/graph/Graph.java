@@ -10,6 +10,8 @@ import java.util.*;
  * Graphs will allow for edges connecting a node to itself but not for
  * two edges with the same label to connect the same two nodes. No two
  * nodes of one graph may share the same label.
+ * @param <TNode> Type of nodes in the graph
+ * @param <TEdge> Type of edges in the graph
  */
 public class Graph<TNode, TEdge>{
     //Nodes in the graph are stored in a List of GraphNode objects while edges

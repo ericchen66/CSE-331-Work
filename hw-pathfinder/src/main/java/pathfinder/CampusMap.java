@@ -23,13 +23,38 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Represents an immutable map of the UW campus
+ */
 public class CampusMap implements ModelAPI {
-
+    //Buildings and paths between locations on campus
+    //are stored in Lists, while the entire campus is
+    //represented as a Graph<Point, Double> object.
+    //RI: buildings(0), buildings(1), ..., buildings(n) != null,
+    //paths(0), paths(1), ..., paths(m) != null, buildings, paths != null,
+    //map != null and contains all buildings
+    //AF(this):
+    //List of buildings on campus == this.buildings
+    //List of possible paths between points on campus == this.paths
+    //Map of campus == this.map
     private List<CampusBuilding> buildings;
     private List<CampusPath> paths;
     private Graph<Point, Double> map;
 
     private Map<String, Graph<Point, Double>.GraphNode> nodes;
+
+    private static final boolean DEBUG = false;
+
+    private void checkRep(){
+        assert this.buildings != null : "this.nodes is null";
+        assert this.paths != null : "this.edges is null";
+        assert this.map != null : "this.map is null";
+        if(DEBUG){
+            for(CampusBuilding building : this.buildings){
+                assert map.getNode(new Point(building.getX(), building.getY())) != null;
+            }
+        }
+    }
 
     /**
      * Creates a CampusMap object containing a list of buildings from campus_buildings.csv
@@ -53,6 +78,7 @@ public class CampusMap implements ModelAPI {
             map.addEdge(map.new GraphEdge(map.getNode(location1), map.getNode(location2), path.getDistance()));
         }
         this.mapStringToNode();
+        checkRep();
     }
 
     /**
@@ -61,12 +87,14 @@ public class CampusMap implements ModelAPI {
      */
     @Override
     public boolean shortNameExists(String shortName) {
+        checkRep();
         // TODO: Implement this method exactly as it is specified in ModelAPI
         for(CampusBuilding building : buildings){
             if(shortName.equals(building.getShortName())){
                 return true;
             }
         }
+        checkRep();
         return false;
     }
 
@@ -77,12 +105,14 @@ public class CampusMap implements ModelAPI {
      */
     @Override
     public String longNameForShort(String shortName) {
+        checkRep();
         // TODO: Implement this method exactly as it is specified in ModelAPI
         for(CampusBuilding building : this.buildings){
             if(shortName.equals(building.getShortName())){
                 return building.getLongName();
             }
         }
+        checkRep();
         throw new IllegalArgumentException("Short name provided does not exist");
     }
 
@@ -91,11 +121,13 @@ public class CampusMap implements ModelAPI {
      */
     @Override
     public Map<String, String> buildingNames() {
+        checkRep();
         // TODO: Implement this method exactly as it is specified in ModelAPI
         Map<String, String> names = new HashMap<>();
         for(CampusBuilding building : this.buildings){
             names.put(building.getShortName(), building.getLongName());
         }
+        checkRep();
         return names;
     }
 
@@ -113,6 +145,7 @@ public class CampusMap implements ModelAPI {
     @Override
     public Path<Point> findShortestPath(String startShortName, String endShortName){
         // TODO: Implement this method exactly as it is specified in ModelAPI
+        checkRep();
         if(startShortName == null || endShortName == null) {
             throw new IllegalArgumentException("Null building name");
         }else if(!this.shortNameExists(startShortName) || !this.shortNameExists(endShortName)){
@@ -123,11 +156,13 @@ public class CampusMap implements ModelAPI {
         Graph<Point, Double>.GraphNode end = this.nodes.get(endShortName);
         Dijkstra<Point> shortestPath = new Dijkstra<>(this.map, start, end);
 
+        checkRep();
         return shortestPath.findMinPath();
     }
 
     //Private helper method to map names of buildings to a GraphNode object
     private void mapStringToNode(){
+        checkRep();
         this.nodes = new HashMap<>();
         for(CampusBuilding building : this.buildings){
             for(Graph<Point, Double>.GraphNode node : this.map.nodes()){
@@ -136,5 +171,6 @@ public class CampusMap implements ModelAPI {
                 }
             }
         }
+        checkRep();
     }
 }
