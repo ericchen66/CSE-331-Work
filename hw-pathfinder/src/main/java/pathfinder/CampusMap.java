@@ -31,6 +31,10 @@ public class CampusMap implements ModelAPI {
 
     private Map<String, Graph<Point, Double>.GraphNode> nodes;
 
+    /**
+     * Creates a CampusMap object containing a list of buildings from campus_buildings.csv
+     * and a list of possible paths on campus from campus_paths.csv.
+     */
     public CampusMap(){
         this.buildings = CampusPathsParser.parseCampusBuildings("campus_buildings.csv");
         this.paths = CampusPathsParser.parseCampusPaths("campus_paths.csv");
@@ -122,6 +126,7 @@ public class CampusMap implements ModelAPI {
         return shortestPath.findMinPath();
     }
 
+    //Private helper method to map names of buildings to a GraphNode object
     private void mapStringToNode(){
         this.nodes = new HashMap<>();
         for(CampusBuilding building : this.buildings){

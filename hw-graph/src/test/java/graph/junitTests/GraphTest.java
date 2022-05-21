@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 /** GraphTest is a collection of tests for the Graph class */
 public class GraphTest {
-    private static Graph<String, String> graph1 = new Graph<>();
+    Graph<String, String> graph1 = new Graph<>();
     Graph<String, String>.GraphNode node1 = graph1.new GraphNode("Node1");
     Graph<String, String>.GraphNode node2 = graph1.new GraphNode("Node2");
     Graph<String, String>.GraphNode node3 = graph1.new GraphNode("Node3");
