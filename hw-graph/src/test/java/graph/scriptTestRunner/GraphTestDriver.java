@@ -137,7 +137,7 @@ public class GraphTestDriver {
         output.println("added node " + nodeName + " to " + graphName);
     }
 
-    private void addEdge(List<String> arguments) throws NoSuchFieldException {
+    private void addEdge(List<String> arguments){
         if(arguments.size() != 4) {
             throw new CommandException("Bad arguments to AddEdge: " + arguments);
         }
@@ -151,7 +151,7 @@ public class GraphTestDriver {
     }
 
     private void addEdge(String graphName, String parentName, String childName,
-                         String edgeLabel) throws NoSuchFieldException{
+                         String edgeLabel){
         Graph<String, String> g = graphs.get(graphName);
         Graph<String, String>.GraphNode parent = g.getNode(parentName);
         Graph<String, String>.GraphNode child = g.getNode(childName);
@@ -185,7 +185,7 @@ public class GraphTestDriver {
 
     }
 
-    private void listChildren(List<String> arguments) throws NoSuchFieldException{
+    private void listChildren(List<String> arguments){
         if(arguments.size() != 2) {
             throw new CommandException("Bad arguments to ListChildren: " + arguments);
         }
@@ -195,7 +195,7 @@ public class GraphTestDriver {
         listChildren(graphName, parentName);
     }
 
-    private void listChildren(String graphName, String parentName) throws NoSuchFieldException{
+    private void listChildren(String graphName, String parentName){
 
         output.print("the children of " + parentName + " in " + graphName + " are:");
         Graph<String, String> g = graphs.get(graphName);

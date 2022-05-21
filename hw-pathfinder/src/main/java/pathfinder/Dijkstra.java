@@ -22,7 +22,7 @@ public class Dijkstra<T> {
         this.finished = new HashSet<>();
     }
 
-    public Path<T> findMinPath() throws NoSuchFieldException, NoSuchObjectException {
+    public Path<T> findMinPath(){
         active.add(new Path<T>(start.getData()));
         Path<T> minPath;
         Graph<T, Double>.GraphNode minDest;
@@ -45,8 +45,6 @@ public class Dijkstra<T> {
             finished.add(minDest);
         }
 
-        throw new NoSuchObjectException("No path exists from start to destination");
-
-
+        return null;
     }
 }

@@ -21,7 +21,7 @@ public class Graph<TNode, TEdge>{
     //Graph edges = this.edges
     private List<GraphNode> nodes;
     private List<GraphEdge> edges;
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
 
     //Private helper method to check the representation invariant (RI) holds
     private void checkRep(){
@@ -123,10 +123,10 @@ public class Graph<TNode, TEdge>{
     /**
      * Returns the GraphNode in the graph with given label
      * @param data Label of the desired node
+     * @spec.requires data is not null and is a label of a node in this
      * @return a GraphNode object with given label
-     * @throws NoSuchFieldException if name is not a node label stored in this
      */
-    public GraphNode getNode(TNode data) throws NoSuchFieldException{
+    public GraphNode getNode(TNode data){
         checkRep();
         for(int i = 0; i < this.nodes.size(); i++){
             if(this.nodes.get(i).data.equals(data)){
@@ -134,7 +134,7 @@ public class Graph<TNode, TEdge>{
             }
         }
         checkRep();
-        throw new NoSuchFieldException("This graph does not contain a node with this data");
+        return null;
     }
 
     /**
@@ -142,11 +142,10 @@ public class Graph<TNode, TEdge>{
      * @param data Label of the desired edge
      * @param start The starting node of the desired edge
      * @param end The ending node of the desired edge
+     * @spec.requires data, start, and end are not null and must represent an edge stored in this
      * @return a GraphEdge object with given starting node, ending node, and label
-     * @throws NoSuchFieldException if given name, starting node, and ending node
-     * does not represent an edge stored in this
      */
-    public GraphEdge getEdge(GraphNode start, GraphNode end, TEdge data) throws NoSuchFieldException{
+    public GraphEdge getEdge(GraphNode start, GraphNode end, TEdge data){
         checkRep();
         for(int i = 0; i < this.edges.size(); i++){
             GraphEdge e = this.edges.get(i);
@@ -155,7 +154,7 @@ public class Graph<TNode, TEdge>{
             }
         }
         checkRep();
-        throw new NoSuchFieldException("This graph does not contain an edge with this data, parent, and child");
+        return null;
     }
 
     /**

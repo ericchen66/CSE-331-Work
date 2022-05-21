@@ -131,7 +131,7 @@ public class PathfinderTestDriver {
         output.println("added node " + nodeName + " to " + graphName);
     }
 
-    private void addEdge(List<String> arguments) throws NoSuchFieldException {
+    private void addEdge(List<String> arguments){
         if(arguments.size() != 4) {
             throw new CommandException("Bad arguments to AddEdge: " + arguments);
         }
@@ -145,7 +145,7 @@ public class PathfinderTestDriver {
     }
 
     private void addEdge(String graphName, String parentName, String childName,
-                         Double edgeLabel) throws NoSuchFieldException{
+                         Double edgeLabel){
         Graph<String, Double> g = graphs.get(graphName);
         Graph<String, Double>.GraphNode parent = g.getNode(parentName);
         Graph<String, Double>.GraphNode child = g.getNode(childName);
@@ -179,7 +179,7 @@ public class PathfinderTestDriver {
 
     }
 
-    private void listChildren(List<String> arguments) throws NoSuchFieldException{
+    private void listChildren(List<String> arguments){
         if(arguments.size() != 2) {
             throw new CommandException("Bad arguments to ListChildren: " + arguments);
         }
@@ -189,7 +189,7 @@ public class PathfinderTestDriver {
         listChildren(graphName, parentName);
     }
 
-    private void listChildren(String graphName, String parentName) throws NoSuchFieldException{
+    private void listChildren(String graphName, String parentName){
 
         output.print("the children of " + parentName + " in " + graphName + " are:");
         Graph<String, Double> g = graphs.get(graphName);
@@ -208,7 +208,7 @@ public class PathfinderTestDriver {
 
     }
 
-    private void findPath(List<String> arguments) throws NoSuchFieldException{
+    private void findPath(List<String> arguments){
         if(arguments.size() != 3) {
             throw new CommandException("Bad arguments to ListChildren: " + arguments);
         }
@@ -220,7 +220,7 @@ public class PathfinderTestDriver {
         findPath(graphName, parentName, childName);
     }
 
-    private void findPath(String graphName, String parentName, String childName) throws NoSuchFieldException{
+    private void findPath(String graphName, String parentName, String childName){
         Graph<String, Double> g = graphs.get(graphName);
         Set<String> nodeLabels = new HashSet<>();
         for(Graph<String, Double>.GraphNode node : g.nodes()){
@@ -239,18 +239,19 @@ public class PathfinderTestDriver {
             Dijkstra<String> pathFinder = new Dijkstra<>(g, g.getNode(parentName), g.getNode(childName));
             output.println("path from " + parentName + " to " + childName + ":");
 
-            try{
-                Path<String> minPath= pathFinder.findMinPath();
+
+            Path<String> minPath = pathFinder.findMinPath();
+            if(minPath == null){
+                output.println("no path found");
+            }else {
                 Iterator<Path<String>.Segment> minPathSegments = minPath.iterator();
                 double total = 0.0;
-                while(minPathSegments.hasNext()){
+                while (minPathSegments.hasNext()) {
                     Path<String>.Segment minPathSegment = minPathSegments.next();
                     total += minPathSegment.getCost();
                     output.println(minPathSegment.getStart() + " to " + minPathSegment.getEnd() + " with weight " + String.format("%.3f", minPathSegment.getCost()));
                 }
                 output.println("total cost: " + String.format("%.3f", total));
-            }catch (NoSuchObjectException e){
-                output.println("no path found");
             }
         }
     }

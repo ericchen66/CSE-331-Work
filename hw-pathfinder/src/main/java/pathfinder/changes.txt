@@ -1,4 +1,7 @@
 Briefly list any changes you made to your graph class during hw-pathfinder, and why you made those changes.
 
 I made the GraphEdge and GraphNode classes non-static, as I want them to access the parameters of the outer
-Graph class directly without requiring parameters of their own.
+Graph class directly without requiring parameters of their own. Instead of throwing exceptions for
+getNode and getEdge in my Graph, I returned null when the given parameter does not exist for a node/edge
+in the Graph. This is because I wanted to avoid too many methods in other classes throwing exceptions
+or using try/catch blocks, as more and more classes rely on Graph.

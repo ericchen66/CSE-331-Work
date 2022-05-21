@@ -12,8 +12,8 @@
 package pathfinder;
 
 import pathfinder.datastructures.Path;
+import pathfinder.datastructures.Point;
 
-import java.awt.Point;
 import java.util.Map;
 
 /*

@@ -59,10 +59,9 @@ public class TaskSorter {
      * added, then this will do nothing.
      *
      * @param dep Dependency to be added
-     * @spec.requires dep != null
-     * @throws NoSuchFieldException if either dep's before or after tasks are not already added
+     * @spec.requires dep != null and before and after tasks exist for dep
      */
-    public void addDependency(Dependency dep) throws NoSuchFieldException{
+    public void addDependency(Dependency dep){
         Task before = dep.getBeforeTask();
         Task after = dep.getAfterTask();
 
@@ -80,11 +79,10 @@ public class TaskSorter {
      * prerequisite (the "before" task of the dependency).
      *
      * @param t the task to search for in the dependencies
-     * @spec.requires t != null
-     * @throws NoSuchFieldException if t has not been added as a task
+     * @spec.requires t != null and t has already been added as a task
      * @return set of dependencies with {@code t} as the "before" task
      */
-    public Set<Dependency> getOutgoingDependencies(Task t) throws NoSuchFieldException{
+    public Set<Dependency> getOutgoingDependencies(Task t){
         // TODO: Implement getting the dependencies that point to the tasks
         //       depending on the given Task (in other words, get the edges
         //       to a node's children in the graph)
@@ -110,7 +108,7 @@ public class TaskSorter {
      * @return List of all tasks that respects the ordering requirements of the
      *     dependencies or null if no such ordering is possible.
      */
-    public List<Task> sortTasks() throws NoSuchFieldException{
+    public List<Task> sortTasks(){
         List<Task> tasks = new ArrayList<>(getTasks());
         Set<Task> visited = new HashSet<>();
         Stack<Task> taskStack = new Stack<>();
@@ -132,7 +130,7 @@ public class TaskSorter {
     // an order is possible. If different Tasks can be done in any order and still satisfy the dependencies,
     // addChain first adds the Tasks with alphabetically later names. If a cycle is detected in
     // the dependencies, than returns true, otherwise returns false.
-    private boolean dfs(Task start, Set<Task> visited, Stack<Task> taskStack) throws NoSuchFieldException{
+    private boolean dfs(Task start, Set<Task> visited, Stack<Task> taskStack){
         Set<Task> localVisited = new HashSet<>();
         Stack<Task> dfsStack = new Stack<>();
         Stack<Task> recordStack = new Stack<>();

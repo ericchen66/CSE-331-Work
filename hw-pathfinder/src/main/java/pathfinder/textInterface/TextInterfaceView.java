@@ -12,6 +12,7 @@
 package pathfinder.textInterface;
 
 import pathfinder.datastructures.Path;
+import pathfinder.datastructures.Point;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,7 +20,6 @@ import java.io.InputStreamReader;
 import java.io.UncheckedIOException;
 import java.util.Map;
 import java.util.TreeSet;
-import java.awt.Point;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
