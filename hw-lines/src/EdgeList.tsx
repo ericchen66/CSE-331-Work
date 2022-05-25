@@ -18,7 +18,8 @@ interface EdgeListProps {
 }
 
 interface EdgeListState{
-    value: string
+    boxText: string
+    warningText: string
 }
 
 /**
@@ -30,41 +31,59 @@ class EdgeList extends Component<EdgeListProps, EdgeListState> {
     constructor(props: EdgeListProps){
         super(props);
         this.state = {
-            value: ""
+            boxText: "",
+            warningText: ""
         };
     }
 
     render() {
         return (
             <div id="edge-list">
+                <p id="warning">{this.state.warningText}</p>
                 Edges <br/>
                 <textarea
                     rows={5}
                     cols={30}
-                    onChange={event => {this.setState({value: event.target.value})}}
-                    value={this.state.value}
+                    onChange={event => {this.setState({boxText: event.target.value})}}
+                    value={this.state.boxText}
                 /> <br/>
                 <button onClick={event => {
-                    let text: any[] = this.state.value.split(`\n`);
+                    let text: any[] = this.state.boxText.split(`\n`);
                     let isFormatted: boolean = true;
                     for(let i: number = 0; i < text.length; i++){
+                        text[i] = text[i].trim();
                         let line: any[] = text[i].split(` `);
                         if(line.length !== 5){
                             isFormatted = false;
+                            this.setState({warningText: `Line ${i+1} does not have 5 elements!`})
+                            break;
                         }else if(isNaN(line[0]) || isNaN(line[1]) || isNaN(line[2]) || isNaN(line[3])){
                             isFormatted = false;
-                        }else if(typeof line[4] !== "string") {
+                            this.setState({warningText: `Line ${i+1} contains a coordinate that is not
+                            a number!`})
+                            break;
+                        }else if(!isNaN(line[4]) || typeof line[4] !== "string") {
                             isFormatted = false;
+                            this.setState({warningText: `Line ${i+1} contains an invalid color!`})
+                            break;
+                        }else if((line[0] < 0 || line[0] > 4000) || (line[1] < 0 || line[1] > 4000) ||
+                            (line[2] < 0 || line[2] > 4000) || (line[3] < 0 || line[3] > 4000)){
+                            isFormatted = false;
+                            this.setState({warningText: `Line ${i+1} contains a coordinate not
+                                between 0 and 4000!`})
+                            break;
                         }
                     }
                     if(isFormatted){
+                        this.setState({warningText: ""});
                         this.props.onChange(text);
                     }else{
                         this.props.onChange([]);
                     }
                     }}>
                     Draw</button>
-                <button onClick={event => {this.setState({value: ""}); this.props.onChange([])}}>Clear</button>
+                <button onClick={event => {this.setState({boxText: ""});
+                    this.setState({warningText: ""}); this.props.onChange([])}}>Clear</button>
             </div>
         );
     }

@@ -45,9 +45,9 @@ class App extends Component<{}, AppState> { // <- {} means no props.
           <Map edges = {this.state.edges} />
         </div>
         <EdgeList
-          onChange={(value) => {
+          onChange={(boxText) => {
             // TODO: Modify this onChange callback to store the edges in the state
-            this.setState({edges: value});
+            this.setState({edges: boxText});
           }}
         />
       </div>

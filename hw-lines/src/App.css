@@ -58,3 +58,10 @@ ID of "app-title". Also makes the text bigger, bold, and adds some space around 
     font-weight: bold;
     margin: 10px;
 }
+
+#warning {
+    text-align: center;
+    color: red;
+    font-size: large;
+    font-weight: bold;
+}
