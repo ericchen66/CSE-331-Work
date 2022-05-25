@@ -17,7 +17,7 @@ import Map from "./Map";
 import "./App.css";
 
 interface AppState {
-    edges: string
+    edges: string[]
 }
 
 class App extends Component<{}, AppState> { // <- {} means no props.
@@ -25,12 +25,18 @@ class App extends Component<{}, AppState> { // <- {} means no props.
   constructor(props: any) {
     super(props);
     this.state = {
-        edges: ""
+        edges: []
       // TODO: store edges in this state
     };
   }
 
   render() {
+      /*let mapEdges: string[];
+      if(this.state.edges.length === 0){
+          mapEdges = [];
+      }else{
+          mapEdges = this.state.edges;
+      }*/
     return (
       <div>
         <h1 id="app-title">Line Mapper!</h1>

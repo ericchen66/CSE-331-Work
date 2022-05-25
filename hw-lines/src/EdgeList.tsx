@@ -12,7 +12,7 @@
 import React, {Component} from 'react';
 
 interface EdgeListProps {
-    onChange(edges: string): void;  // called when a new edge list is ready
+    onChange(edges: string[]): void;  // called when a new edge list is ready
                                  // TODO: once you decide how you want to communicate the edges to the App, you should
                                  // change the type of edges so it isn't `any`
 }
@@ -41,12 +41,30 @@ class EdgeList extends Component<EdgeListProps, EdgeListState> {
                 <textarea
                     rows={5}
                     cols={30}
-                    onChange={event => {this.setState({value: event.target.value});
-                        this.props.onChange(event.target.value)}}
+                    onChange={event => {this.setState({value: event.target.value})}}
                     value={this.state.value}
                 /> <br/>
-                <button onClick={event => {console.log("Draw onClick was called")}}>Draw</button>
-                <button onClick={() => {console.log('Clear onClick was called');}}>Clear</button>
+                <button onClick={event => {
+                    let text: any[] = this.state.value.split(`\n`);
+                    let isFormatted: boolean = true;
+                    for(let i: number = 0; i < text.length; i++){
+                        let line: any[] = text[i].split(` `);
+                        if(line.length !== 5){
+                            isFormatted = false;
+                        }else if(isNaN(line[0]) || isNaN(line[1]) || isNaN(line[2]) || isNaN(line[3])){
+                            isFormatted = false;
+                        }else if(typeof line[4] !== "string") {
+                            isFormatted = false;
+                        }
+                    }
+                    if(isFormatted){
+                        this.props.onChange(text);
+                    }else{
+                        this.props.onChange([]);
+                    }
+                    }}>
+                    Draw</button>
+                <button onClick={event => {this.setState({value: ""}); this.props.onChange([])}}>Clear</button>
             </div>
         );
     }

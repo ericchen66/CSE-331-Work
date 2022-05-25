@@ -21,6 +21,7 @@ import {
 } from "./Constants";
 
 interface MapLineProps {
+  key: string; // unique key of line
   color: string; // color of line
   x1: number; // x coordinate of start point
   y1: number; // y coordinate of start point
