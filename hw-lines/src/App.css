@@ -59,6 +59,9 @@ ID of "app-title". Also makes the text bigger, bold, and adds some space around 
     margin: 10px;
 }
 
+/* Centers the warning label text, which exists as a <p> element in EdgeList. Sets the font to bold
+and large and color to red.
+ */
 #warning {
     text-align: center;
     color: red;

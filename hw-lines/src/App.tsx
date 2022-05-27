@@ -16,6 +16,9 @@ import Map from "./Map";
 // Allows us to write CSS styles inside App.css, any styles will apply to all components inside <App />
 import "./App.css";
 
+//edges: array of string elements that is passed
+//to the Map element to determine the edges to be
+//drawn
 interface AppState {
     edges: string[]
 }
@@ -30,13 +33,11 @@ class App extends Component<{}, AppState> { // <- {} means no props.
     };
   }
 
+    //Puts all Map, MapLine, and EdgeList elements on
+    //the webpage and communicates information between
+    //EdgeList and Map. This information determines whether
+    //edges should be drawn and if so, what they will look like
   render() {
-      /*let mapEdges: string[];
-      if(this.state.edges.length === 0){
-          mapEdges = [];
-      }else{
-          mapEdges = this.state.edges;
-      }*/
     return (
       <div>
         <h1 id="app-title">Line Mapper!</h1>

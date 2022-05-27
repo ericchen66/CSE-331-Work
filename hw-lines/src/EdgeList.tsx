@@ -17,6 +17,8 @@ interface EdgeListProps {
                                  // change the type of edges so it isn't `any`
 }
 
+//boxText: the text currently in the text area
+//warningText: the warning to be displayed if user enters invalid edge
 interface EdgeListState{
     boxText: string
     warningText: string
@@ -25,6 +27,7 @@ interface EdgeListState{
 /**
  * A text field that allows the user to enter the list of edges.
  * Also contains the buttons that the user will use to interact with the app.
+ * This file will parse a (valid) user input into an array as well.
  */
 class EdgeList extends Component<EdgeListProps, EdgeListState> {
 
@@ -36,6 +39,11 @@ class EdgeList extends Component<EdgeListProps, EdgeListState> {
         };
     }
 
+    //Creates the text area where a user could type in edges
+    //as well as the draw and clear buttons. If at least one line of user
+    //input (a blank line is counted as a line as well!) is invalid
+    //while the draw button is clicked, a warning will pop up above
+    //the text area indicating the invalid line and what mistake should be fixed.
     render() {
         return (
             <div id="edge-list">
