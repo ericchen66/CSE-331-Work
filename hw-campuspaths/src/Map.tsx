@@ -25,12 +25,20 @@ const position: LatLngExpression = [UW_LATITUDE_CENTER, UW_LONGITUDE_CENTER];
 
 interface MapProps {
   // TODO: Define the props of this component.
+    edges: string[]
 }
 
-interface MapState {}
+interface MapState {
+
+}
 
 class Map extends Component<MapProps, MapState> {
   render() {
+      let lines: any[] = [];
+      for(let i: number = 0; i < this.props.edges.length; i++){
+          let edge: any[] = this.props.edges[i].split(` `);
+          lines.push(<MapLine key={`key${i}`} color={edge[4]} x1={edge[0]} y1={edge[1]} x2={edge[2]} y2={edge[3]}/>);
+      }
     return (
       <div id="map">
         <MapContainer
@@ -43,6 +51,7 @@ class Map extends Component<MapProps, MapState> {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           {
+              lines
             // TODO: Render map lines here using the MapLine component. E.g.
             // <MapLine key="key1" color="red" x1={1000} y1={1000} x2={2000} y2={2000}/>
             // will draw a red line from the point 1000,1000 to 2000,2000 on the
