@@ -32,7 +32,7 @@ class BuildingSelector extends Component<BuildingSelectorProps, BuildingSelector
         let response = await fetch("http://localhost:4567/minPath?startBuilding="
             + startName + "&endBuilding=" + endName);
         if (!response.ok) {
-            return alert("Error! Expected: 200, Was: " + response.status);
+            return alert("Server response expected: 200. Received: " + response.status);
         }
         let responseObj = await response.json();
         this.props.onChange(responseObj);

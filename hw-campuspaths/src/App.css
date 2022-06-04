@@ -51,10 +51,3 @@ input {
     font-weight: bold;
     margin: 10px;
 }
-
-#warning {
-    text-align: center;
-    color: red;
-    font-size: large;
-    font-weight: bold;
-}
