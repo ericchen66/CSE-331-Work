@@ -25,7 +25,7 @@ const position: LatLngExpression = [UW_LATITUDE_CENTER, UW_LONGITUDE_CENTER];
 
 interface MapProps {
   // TODO: Define the props of this component.
-    edges: number[]
+    edges: any[]
 }
 
 interface MapState {
@@ -35,9 +35,9 @@ interface MapState {
 class Map extends Component<MapProps, MapState> {
   render() {
       let lines: any[] = [];
-      for(let i: number = 0; i < this.props.edges.length; i+=4){
-          lines.push(<MapLine key={`key${i}`} color={"black"} x1={this.props.edges[i]} y1={this.props.edges[i+1]}
-                              x2={this.props.edges[i+2]} y2={this.props.edges[i+3]}/>);
+      for(let i: number = 0; i < this.props.edges.length; i+=2){
+          lines.push(<MapLine key={`key${i}`} color={"black"} x1={this.props.edges[i].x} y1={this.props.edges[i].y}
+                              x2={this.props.edges[i+1].x} y2={this.props.edges[i+1].y}/>);
       }
     return (
       <div id="map">

@@ -22,7 +22,6 @@ interface EdgeListProps {
 interface EdgeListState{
     startBuilding: string|undefined
     endBuilding: string|undefined
-    path: any[]
 }
 
 /**
@@ -37,7 +36,6 @@ class EdgeList extends Component<EdgeListProps, EdgeListState> {
         this.state = {
             startBuilding: undefined,
             endBuilding: undefined,
-            path: []
         };
     }
 
@@ -48,7 +46,7 @@ class EdgeList extends Component<EdgeListProps, EdgeListState> {
             return alert("Error! Expected: 200, Was: " + response.status);
         }
         let responseObj = await response.json();
-        this.setState({path: responseObj});
+        this.props.onChange(responseObj);
     }
 
     //Creates the text area where a user could type in edges
@@ -57,15 +55,13 @@ class EdgeList extends Component<EdgeListProps, EdgeListState> {
     //while the draw button is clicked, a warning will pop up above
     //the text area indicating the invalid line and what mistake should be fixed.
     render() {
-        if (this.state.startBuilding !== undefined && this.state.endBuilding !== undefined) {
-            this.findMinPath(this.state.startBuilding, this.state.endBuilding);
-        }
         return (
             <div id ="edge-list">
                 <div>
                     <label>Starting Building</label>
                     <br/>
-                    <select size = {10} onChange={event => this.setState({startBuilding: event.target.value})}>Start
+                    <select id = "startBuilding" onChange={event => this.setState({startBuilding: event.target.value})}>Start
+                        <option value = "Default">Select a Building</option>
                     <option value = "BAG">Bagley Hall (East Entrance)</option>
                     <option value = "BAG (NE)">Bagley Hall (Northeast Entrance)</option>
                     <option value = "BGR">By George</option>
@@ -124,7 +120,8 @@ class EdgeList extends Component<EdgeListProps, EdgeListState> {
                 <div>
                     <label>Destination Building</label>
                     <br/>
-                    <select size = {10} onChange={event => this.setState({endBuilding: event.target.value})}>End
+                    <select id = "endBuilding" onChange={event => this.setState({endBuilding: event.target.value})}>End
+                        <option value = "Default">Select a Building</option>
                     <option value = "BAG">Bagley Hall (East Entrance)</option>
                     <option value = "BAG (NE)">Bagley Hall (Northeast Entrance)</option>
                     <option value = "BGR">By George</option>
@@ -181,17 +178,20 @@ class EdgeList extends Component<EdgeListProps, EdgeListState> {
                 </div>
                 <br/>
                 <button onClick={event => {
-                    let pathAsNumbers: number[] = [];
-                    if(this.state.path[0] !== undefined){
-                        for(let i: number = 0; i < this.state.path.length; i++){
-                            pathAsNumbers.push(this.state.path[i].x);
-                            pathAsNumbers.push(this.state.path[i].y);
-                        }
+                    if (this.state.startBuilding !== undefined && this.state.startBuilding !== "Default"
+                        && this.state.endBuilding !== undefined && this.state.endBuilding !== "Default") {
+                        this.findMinPath(this.state.startBuilding, this.state.endBuilding);
                     }
-                    this.props.onChange(pathAsNumbers);
                     }}>
                     Draw</button>
-                <button onClick={event => {this.setState({path: []}); this.setState({endBuilding: undefined});
+                <button onClick={event => {
+                    const select1 = document.querySelector('#startBuilding');
+                    const select2 = document.querySelector('#endBuilding');
+                    // @ts-ignore
+                    select1.value = 'Default'
+                    // @ts-ignore
+                    select2.value = 'Default'
+                    this.setState({endBuilding: undefined});
                     this.setState({startBuilding: undefined}); this.props.onChange([])}}>Clear</button>
             </div>
         );

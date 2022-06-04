@@ -17,7 +17,7 @@ import Map from "./Map";
 import "./App.css";
 
 interface AppState {
-    edges: number[]
+    edges: any[]
 }
 
 class App extends Component<{}, AppState> {
@@ -33,7 +33,7 @@ class App extends Component<{}, AppState> {
     render() {
         return (
             <div>
-                <h1 id="app-title">Line Mapper!</h1>
+                <h1 id="app-title">Campus Paths Mapper!</h1>
                 <div>
                     {/* TODO: define props in the Map component and pass them in here */}
                     <Map edges = {this.state.edges} />
