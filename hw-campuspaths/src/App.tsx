@@ -17,7 +17,7 @@ import Map from "./Map";
 import "./App.css";
 
 interface AppState {
-    edges: string[]
+    edges: number[]
 }
 
 class App extends Component<{}, AppState> {
@@ -39,9 +39,9 @@ class App extends Component<{}, AppState> {
                     <Map edges = {this.state.edges} />
                 </div>
                 <EdgeList
-                    onChange={(boxText) => {
+                    onChange={(path) => {
                         // TODO: Modify this onChange callback to store the edges in the state
-                        this.setState({edges: boxText});
+                        this.setState({edges: path});
                     }}
                 />
             </div>

@@ -18,6 +18,8 @@ import pathfinder.datastructures.Path;
 import pathfinder.datastructures.Point;
 import spark.Spark;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 public class SparkServer {
@@ -32,22 +34,16 @@ public class SparkServer {
         CampusMap map = new CampusMap();
         Gson gson = new Gson();
 
-        Spark.get("/buildings", (req, res) -> {
-            String longName = req.queryParams("buildingName");
-            Set<String> shortNames = map.buildingNames().keySet();
-            for(String shortName : shortNames){
-                if(map.longNameForShort(shortName).equals(longName)){
-                    return gson.toJson(shortName);
-                }
-            }
-            return null;
-        });
-
         Spark.get("/minPath", (req, res) -> {
             String start = req.queryParams("startBuilding");
             String end = req.queryParams("endBuilding");
             Path<Point> shortestPath= map.findShortestPath(start, end);
-            return gson.toJson(shortestPath);
+            List<Object> segments = new LinkedList<>();
+            for(Path.Segment s : shortestPath){
+                segments.add(s.getStart());
+                segments.add(s.getEnd());
+            }
+            return gson.toJson(segments);
         });
 
         // TODO: Create all the Spark Java routes you need here.
