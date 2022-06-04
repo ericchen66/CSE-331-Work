@@ -10,37 +10,39 @@
  */
 
 import React, {Component} from 'react';
-import EdgeList from "./EdgeList";
+import BuildingSelector from "./BuildingSelector";
 import Map from "./Map";
 
 // Allows us to write CSS styles inside App.css, any styles will apply to all components inside <App />
 import "./App.css";
 
 interface AppState {
-    edges: any[]
+    edges: any[] //Contains each of the points in the shortest path between two selected buildings
 }
 
+/**
+ * Creates all components of the Campus Paths app and passes
+ * information from BuildingSelector to Map.
+ */
 class App extends Component<{}, AppState> {
 
     constructor(props: any) {
         super(props);
         this.state = {
             edges: []
-            // TODO: store edges in this state
         };
     }
 
+    //Adds all components of the Campus Paths app to the webpage
     render() {
         return (
             <div>
                 <h1 id="app-title">Campus Paths Mapper!</h1>
                 <div>
-                    {/* TODO: define props in the Map component and pass them in here */}
                     <Map edges = {this.state.edges} />
                 </div>
-                <EdgeList
+                <BuildingSelector
                     onChange={(path) => {
-                        // TODO: Modify this onChange callback to store the edges in the state
                         this.setState({edges: path});
                     }}
                 />

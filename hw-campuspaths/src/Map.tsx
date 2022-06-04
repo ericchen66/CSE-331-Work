@@ -24,14 +24,14 @@ const position: LatLngExpression = [UW_LATITUDE_CENTER, UW_LONGITUDE_CENTER];
 // with your hw-lines Map
 
 interface MapProps {
-  // TODO: Define the props of this component.
-    edges: any[]
+    edges: any[] //All edges of the map, represented as point (x,y)
 }
 
-interface MapState {
+interface MapState {}
 
-}
-
+/**
+ * Creates a map of UW campus with corresponding paths, drawn as black lines
+ */
 class Map extends Component<MapProps, MapState> {
   render() {
       let lines: any[] = [];
@@ -50,13 +50,7 @@ class Map extends Component<MapProps, MapState> {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {
-              lines
-            // TODO: Render map lines here using the MapLine component. E.g.
-            // <MapLine key="key1" color="red" x1={1000} y1={1000} x2={2000} y2={2000}/>
-            // will draw a red line from the point 1000,1000 to 2000,2000 on the
-            // map. Note that key should be a unique key that only this MapLine has.
-          }
+          {lines /*Renders paths onto map*/}
         </MapContainer>
       </div>
     );

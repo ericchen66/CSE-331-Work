@@ -20,8 +20,12 @@ import spark.Spark;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
+/**
+ * Java server that sends info to the Campus Paths app.
+ * Used for finding shortest path between two buildings on
+ * the UW campus.
+ */
 public class SparkServer {
 
     public static void main(String[] args) {
@@ -31,9 +35,14 @@ public class SparkServer {
         // React application to make requests to the Spark server, even though it
         // comes from a different server.
         // You should leave these two lines at the very beginning of main().
+
+        // Creates a CampusMap object to calculate the shortest path between two buildings
         CampusMap map = new CampusMap();
         Gson gson = new Gson();
 
+        // Returns the shortest path between two buildings as a list of points.
+        // Returns a 404 error if either startBuilding or endBuilding is not defined
+        // as a query parameter
         Spark.get("/minPath", (req, res) -> {
             String start = req.queryParams("startBuilding");
             String end = req.queryParams("endBuilding");
